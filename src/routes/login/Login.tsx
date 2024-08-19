@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Mobile, PC } from "../Layout";
+import Navbar from "../../components/common/Navbar";
 import "../login/Login.css";
 import intro from "../../assets/background1.png";
-import introLogo from "../../assets/Login/introLogo.png";
-import kakaoLogin from "../../assets/Login/kakaoLogin.png"
+import introLogo from "../../assets/Login/M/introLogo.png";
+import kakaoLogin from "../../assets/Login/M/kakaoLogin.png"
 
 const LoginPage: React.FC = () => {
     const [isAnimated, setIsAnimated] = useState<boolean>(false);
@@ -40,7 +41,9 @@ const LoginPage: React.FC = () => {
             </Mobile>
 
             <PC>
-                쿠쿠루삥뽕
+                <div>
+                    <Navbar text={"home"}/>
+                </div>
             </PC>
         </div>
     );
