@@ -8,7 +8,7 @@
 }
 
 .animate-roll {
-    animation: roll 8s forwards; /* Animation will not loop back */
+    animation: roll 3s forwards; /* Animation will not loop back */
 }
 
 

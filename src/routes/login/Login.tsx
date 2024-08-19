@@ -22,15 +22,15 @@ const LoginPage: React.FC = () => {
             <Mobile>
                 <div>
                     <div 
-                        className={`relative w-[430px] h-[932px] bg-cover bg-no-repeat animate-roll`}
+                        className={`relative w-[100vw] h-[100vh] bg-cover bg-no-repeat animate-roll`}
                         style={{ backgroundImage: `url(${intro})` }}
                     >
                         <div className={`overlay ${isAnimated ? 'overlay-darken' : ''}`}>
                             
                             {isAnimated? 
                                 <div className="flex flex-col items-center">
-                                    <img className="ml-[43px] mt-[70px]" src={introLogo} />
-                                    <img className="mt-[523px]" src={kakaoLogin} />
+                                    <img className="ml-[10vw] mt-[7.5vh]" src={introLogo} />
+                                    <img className="mt-[57vh]" src={kakaoLogin} />
                                 </div>
                             :
                             ''}
