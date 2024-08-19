@@ -28,7 +28,7 @@ const Navbar: React.FC<NavbarProps> = ({ text }) => {
                 <div className="w-[5.3vw] text-center">전지</div>
             </div>
 
-            <div className="ml-[16vw] flex items-center">
+            <div className="ml-auto mr-[6.4vw] flex items-center">
                 <img src={bell} className="h-[2.1vh]" alt="Bell" />
                 <img src={line} className="ml-[0.4vw] h-[2.1vh]" alt="Line" />
                 <img src={profile} className="ml-[0.9vw] h-[2.1vh]" alt="Profile" />
