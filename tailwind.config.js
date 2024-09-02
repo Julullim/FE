@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 import textshadow from 'tailwindcss-textshadow';
 
+
 export default {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
@@ -8,14 +9,12 @@ export default {
   theme: {
     extend: {
 
-      fontFamily: {
-        'pt': ['Pretendard'], 
-      },
-
       textShadow: {
         'white-blur-15': '0px 0px 15px rgba(255, 255, 255, 1)',
-        'black-blur-15' : '0px 0px 5px rgba(0, 0, 0, 0.25)'
+        'black-blur-5' : '0px 0px 5px rgba(0, 0, 0, 0.25)'
       },
+
+      
 
       boxShadow:{
         'black-blur-15' : '0px 0px 5px rgba(0, 0, 0, 0.25)'
