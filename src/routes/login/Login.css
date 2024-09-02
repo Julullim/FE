@@ -1,0 +1,46 @@
+@keyframes roll {
+    0% {
+        background-position: 0 center;
+    }
+    100% {
+        background-position: 100% center;
+    }
+}
+
+.animate-roll {
+    animation: roll 3s forwards; /* Animation will not loop back */
+}
+
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color 2s ease;
+    pointer-events: none; 
+}
+
+.overlay-darken {
+    background-color: rgba(0, 0, 0, 0.5); 
+}
+
+.overlayP {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    transition: background-color 2s ease;
+    pointer-events: none; 
+}
+
+.overlayP-darken {
+    background-color: rgba(0, 0, 0, 0.5); 
+}
+
+
+
