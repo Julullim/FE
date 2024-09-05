@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import LoginPage from "../routes/login/Login";
+import MainPage from "../routes/main/Main";
 
 export const mainRouter = [
 
@@ -21,6 +22,14 @@ export const mainRouter = [
        
     },
     
+    {
+
+        path: "/main",
+        element:(
+            <MainPage/>
+        )
+        
+    },
     
    
 ];
