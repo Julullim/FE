@@ -21,11 +21,11 @@ const Navbar: React.FC<NavbarProps> = ({ text }) => {
             <img className="ml-[4.2vw] h-[3.1vh]" src={logo} alt="Logo" onClick={() => handleNavClick('main')}/>
 
             <div className="flex ml-[9.9vw] font-pt text-[2.2vh] text-darkgray gap-[3.8vw] items-center">
-                <div className={`w-[5.3vw] text-center ${text === 'notice' ? 'text-shadow-black-blur-15 font-bold' : ''}`} onClick={() => handleNavClick('notice')}>공지사항</div>
-                <div className={`w-[5.3vw] text-center ${text === 'calender' ? 'text-shadow-black-blur-15 font-bold' : ''}` } onClick={() => handleNavClick('calender')}>캘린더</div>
-                <div className={`w-[5.3vw] text-center ${text === 'reservation' ? 'text-shadow-black-blur-15 font-bold' : ''}`} onClick={() => handleNavClick('reservation')}>동방예약</div>
-                <div className={`w-[5.3vw] text-center ${text === 'goods' ? 'text-shadow-black-blur-15 font-bold' : ''}`} onClick={() => handleNavClick('goods')}>굿즈</div>
-                <div className={`w-[5.3vw] text-center ${text === 'setlist' ? 'text-shadow-black-blur-15 font-bold' : ''}`} onClick={() => handleNavClick('setlist')}>전지</div>
+                <div className={`w-[5.3vw] text-center ${text === 'notice' ? 'text-shadow-black-blur-5 font-bold' : ''}`} onClick={() => handleNavClick('notice')}>공지사항</div>
+                <div className={`w-[5.3vw] text-center ${text === 'calender' ? 'text-shadow-black-blur-5 font-bold' : ''}` } onClick={() => handleNavClick('calender')}>캘린더</div>
+                <div className={`w-[5.3vw] text-center ${text === 'reservation' ? 'text-shadow-black-blur-5 font-bold' : ''}`} onClick={() => handleNavClick('reservation')}>동방예약</div>
+                <div className={`w-[5.3vw] text-center ${text === 'goods' ? 'text-shadow-black-blur-5 font-bold' : ''}`} onClick={() => handleNavClick('goods')}>굿즈</div>
+                <div className={`w-[5.3vw] text-center ${text === 'setlist' ? 'text-shadow-black-blur-5 font-bold' : ''}`} onClick={() => handleNavClick('setlist')}>전지</div>
             </div>
 
             <div className="ml-auto mr-[6.4vw] flex items-center">
