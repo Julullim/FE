@@ -2,6 +2,7 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import LoginPage from "../routes/login/Login";
 import SignupPage from "../routes/signup/Signup";
 import LoginCallback from "../routes/login/LoginCallback";
+import CalendarPage from "../routes/calendar/Calendar";
 
 export const mainRouter = [
 
@@ -67,7 +68,7 @@ export const mainRouter = [
     
         path: "/calender",
         element:(
-           <LoginPage/>
+           <CalendarPage/>
         )
        
     },
