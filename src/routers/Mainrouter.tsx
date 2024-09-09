@@ -66,7 +66,7 @@ export const mainRouter = [
     
     {
     
-        path: "/calender",
+        path: "/calendar",
         element:(
            <CalendarPage/>
         )
