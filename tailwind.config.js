@@ -17,7 +17,7 @@ export default {
       
 
       boxShadow:{
-        'black-blur-15' : '0px 0px 5px rgba(0, 0, 0, 0.25)'
+        'black-blur-5' : '0px 0px 5px rgba(0, 0, 0, 0.25)'
       },
 
       fontWeight: {
@@ -34,7 +34,7 @@ export default {
         yellow:'#FFE57B',
         lightyellow:'#FFF7B2'
 
-      }
+      },
 
       
     },

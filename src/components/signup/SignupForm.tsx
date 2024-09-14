@@ -15,7 +15,6 @@ import sessionHeadPhone from "../../assets/siginup/sessionheadphone.png";
 import sessionPiano from "../../assets/siginup/sessionpiano.png";
 
 
-
 interface SignupFormProps {
     onSignup: (sId: string, name: string, cNum: number, token: string) => Promise<void>;
 }
@@ -28,7 +27,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSignup }) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const {token} = useUserLoginStore()
     const sessions = [sessionGuitar, sessionBass, sessionHeadPhone, sessionDrum, sessionPiano, sessionVocal, sessionBeer];
-;
+
     const openModal = () => {
         setIsOpen(true);
     };
