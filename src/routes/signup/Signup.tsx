@@ -8,7 +8,7 @@ import LogoM from "../../assets/siginup/JulAllimM.png"
 import intro from "../../assets/background1.png"
 import introLogoP from "../../assets/Login/P/introLogo.png"
 import SignupForm from "../../components/signup/SignupForm";
-import TabBar from "../../components/common/TabBar";
+
 
 
 
@@ -37,7 +37,6 @@ const SignupPage: React.FC = () => {
         <div>
 
              <Mobile>
-                <TabBar text='로그인'/>
                 <div className="relative h-[90.4vh] w-[100vw]">
                     <div className="ml-[10vw] mt-[9.6vh]">
                         <img src={LogoM} className="w-auto h-[5.5vh]" alt="로고" />
