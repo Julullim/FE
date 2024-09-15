@@ -103,14 +103,6 @@ export const mainRouter = [
        
     },
     
-    {
-
-        path: "/main",
-        element:(
-            <MainPage/>
-        )
-        
-    },
     
    
 ];
