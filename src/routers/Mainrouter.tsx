@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import LoginPage from "../routes/login/Login";
+import SetlistPage from "../routes/setlists/setlist";
 
 export const mainRouter = [
 
@@ -77,7 +78,7 @@ export const mainRouter = [
     
         path: "/setlist",
         element:(
-           <LoginPage/>
+           <SetlistPage/>
         )
        
     },

@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 import textshadow from 'tailwindcss-textshadow';
+import scrollbarHide from 'tailwind-scrollbar-hide';
 
 export default {
   content: [
@@ -42,6 +43,7 @@ export default {
   },
   plugins: [
     textshadow, 
+    scrollbarHide,
   ],
 }
 
