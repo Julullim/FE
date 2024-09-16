@@ -74,7 +74,7 @@ const SetlistPage: React.FC = () => {
 
 
                                     <div className="w-full h-[10vh] flex items-center border-b-2 border-lightgray shadow-[0px_0px_10px_0px_#F2DCC2] relative">
-                                        <img src={emptyHeart} className="w-[10vw] h-[10vw] ml-[2vh] mr-[2vh]" />
+                                        <img src={fullHeart} className="w-[10vw] h-[10vw] ml-[2vh] mr-[2vh]" />
                                         <div className="">
                                             <div className="text-[#333333] font-bold text-[100%]">아지랑이</div>
                                             <div className="text-gray text-[80%]">LUCY</div>
@@ -366,7 +366,7 @@ const SetlistPage: React.FC = () => {
                                 </div>
                             </div>
                             <div className="w-full h-[8vh] flex items-center border-b-2 border-lightgray shadow-[0px_0px_10px_0px_#F2DCC2] relative">
-                                <img src={emptyHeart} className="w-[5vh] h-[5vh] ml-[2vw] mr-[2vw]" />
+                                <img src={fullHeart} className="w-[5vh] h-[5vh] ml-[2vw] mr-[2vw]" />
                                 <div className="">
                                     <div className="text-[#333333] font-bold text-[100%]">아지랑이</div>
                                     <div className="text-gray text-[80%]">LUCY</div>
