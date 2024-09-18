@@ -4,6 +4,7 @@ import SignupPage from "../routes/signup/Signup";
 import LoginCallback from "../routes/login/LoginCallback";
 import MainPage from "../routes/main/Main";
 import SetlistPage from "../routes/setlists/setlist";
+import { NoticePage } from "../routes/notice/Notice";
 
 export const mainRouter = [
 
@@ -59,7 +60,7 @@ export const mainRouter = [
     
         path: "/notice",
         element:(
-           <LoginPage/>
+           <NoticePage/>
         )
        
     },
