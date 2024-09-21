@@ -1,0 +1,17 @@
+.custom-switch .form-check-input:checked {
+    background-color: #F2F2F2; /* 체크된 상태 색상 */
+    border: none;
+   
+}
+.custom-switch .form-check-input {
+    background-color: #F2F2F2; /* 기본 상태 색상 */
+    border: none;
+    width: 12.5vw;
+    
+}
+
+.custom-switch{
+    margin-left: 33.7vw;
+}
+
+

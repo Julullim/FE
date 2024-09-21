@@ -3,6 +3,7 @@ import LoginPage from "../routes/login/Login";
 import SignupPage from "../routes/signup/Signup";
 import LoginCallback from "../routes/login/LoginCallback";
 import CalendarPage from "../routes/calendar/Calendar";
+import AddSchedulePage from "../routes/calendar/AddSchedule";
 
 export const mainRouter = [
 
@@ -69,6 +70,15 @@ export const mainRouter = [
         path: "/calendar",
         element:(
            <CalendarPage/>
+        )
+       
+    },
+
+    {
+    
+        path: "/calendar/new",
+        element:(
+           <AddSchedulePage/>
         )
        
     },

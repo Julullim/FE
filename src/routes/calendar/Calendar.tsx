@@ -1,11 +1,19 @@
 import React from "react";
 import { Mobile, PC } from "../Layout";
+import Navbar from "../../components/common/Navbar";
+import MainTab from "../../components/common/MainTab";
+import CustonCalendar from "../../components/calendar/CustomCalendar";
+
 
 const CalendarPage: React.FC=()=>{
     return(
         <div>
             <Mobile>
                 <div>
+                    <MainTab/>
+                    <Navbar text='calendar'/>
+                    <CustonCalendar/>
+              
 
                 </div>
 
