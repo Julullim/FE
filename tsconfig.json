@@ -11,8 +11,6 @@
 
   "compilerOptions": {
     "esModuleInterop": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
     "jsx": "react"
   }
 }
