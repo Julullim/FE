@@ -5,60 +5,15 @@ import Reservation from "../../components/reservation/Res";
 import { Mobile, PC } from "../Layout";
 import NoticeRecItems from "../../components/main/Notice";
 import CalendarMain from "../../components/main/Calendar";
+import { PageTitle } from "../../components/common/PageTitle";
+import { MobileMain } from "./MobileMain";
 
 const MainPage: React.FC = () => {
     return (
         <div>
             <Mobile>
-                <div className="main-page">
-                    <ImgSlider />
-
-                    <div className="items-center mt-[3.5vh] ml-[4vh] mr-[4vh] flex">
-                        <div className="font-semibold text-[#333333] text-[100%] text-center">
-                            공지사항<div className="h-1 left-px [background:radial-gradient(50%_50%_at_50%_50%,rgb(242,220,194)_0%,rgb(255,255,255)_100%)]" />
-
-                        </div>
-                        <div className="mr-0 flex items-center ml-auto">
-                            <div className="text-[50%] text-center align-middle font-semibold">
-                                더보기
-                            </div>
-                            <img className="w-[2vh] rotate-180 ml-[1vh]" alt="Back" src="src/assets/common/etc/black_arrow.png" />
-                        </div>
-                    </div>
-
-                    <div className="ml-[2vh] mr-[2vh] mt-[1vh]">
-                        <NoticeRecItems />
-                    </div>
-
-                    <div className="items-center mt-[4vh] ml-[4vh] mr-[4vh] flex">
-                        <div className="font-semibold text-[#333333] text-[100%] text-center">
-                            이주의 동방예약
-                            <div className="h-1 left-px [background:radial-gradient(50%_50%_at_50%_50%,rgb(242,220,194)_0%,rgb(255,255,255)_100%)]" />
-                        </div>
-                    </div>
-
-                    <CalendarMain />
-
-                    <div className="items-center mt-[6vh] ml-[4vh] mr-[4vh] flex">
-                        <div className="font-semibold text-[#333333] text-[100%] text-center">
-                            구매 가능한 굿즈
-                            <div className="h-1 left-px [background:radial-gradient(50%_50%_at_50%_50%,rgb(242,220,194)_0%,rgb(255,255,255)_100%)]" />
-                        </div>
-                    </div>
-
-                    <Goods />
-
-                    <div className="items-center mt-[4vh] ml-[4vh] mr-[4vh] flex">
-                        <div className="font-semibold text-[#333333] text-[100%] text-center">
-                            수요조사 중인 굿즈
-                            <div className="h-1 left-px [background:radial-gradient(50%_50%_at_50%_50%,rgb(242,220,194)_0%,rgb(255,255,255)_100%)]" />
-                        </div>
-                    </div>
-
-                    <Goods />
-                </div>
+                <MobileMain />
             </Mobile>
-
             <PC>
                 <div className="bg-[#ffffff] flex flex-row justify-center w-full">
                     {/*줄울림 소개*/}
