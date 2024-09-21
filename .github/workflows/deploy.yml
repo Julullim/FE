@@ -28,7 +28,7 @@ jobs:
                 chmod 600 id_rsa
                 eval "$(ssh-agent -s)"
                 ssh-add id_rsa
-                
+
             - name: Copy files to EC2
               uses: appleboy/scp-action@v0.1.0
               with:
@@ -38,7 +38,6 @@ jobs:
                 port: 22
                 source: "dist/*"
                 target: "/home/ubuntu/"
-                debug: true
 
             - name: Execute remote commands via SSH
               uses: appleboy/ssh-action@v0.1.6
