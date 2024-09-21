@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Mobile, PC } from "../Layout";
 import { useSearchParams } from "react-router-dom";
+import PageTitle from "../../components/common/PageTitle";
 
 const emptyHeart = "https://s3-alpha-sig.figma.com/img/d44e/e4f7/c67e8005c7aedad495f2d819d86be9cd?Expires=1727654400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=kYuZKKLJya~9KVNTLL3HYCmpVqwaClFIAzEn-iDSIwF4TGk0cUB1TYQFoVY7PwGdblTF0c0PL-yURKD5bsMeGH4zIqd7LPAwao9RMoiT6Of59BG0NhhJrVSVUFk7j98Yovys-sEebvYQcF6H74biNPDXJqlAvfnXJ2kFV3u1qBcM~wUEaJlKZ6yABVhI-hrcG-QIiGgvnwDGAXTth8E7ULiaG5-RRqSFYCsroSPri9co901~pCDek~TnQChDd1AhVS81SkZhj1pJkoqnehDa9AipB9QMSHODHX8ag1qyZUUVCkm0bcSK3LQX43KTX4MGcvPgB3KdoIIrTLkvPKe1DA__";
 const fullHeart = "https://s3-alpha-sig.figma.com/img/ff3a/a28e/cf91dd37c4f65b8d2a97658185605e8f?Expires=1727654400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=qoVRc~PaFBg0hQFzGEkVa~UwlZDUc7v68r5vu6M2oRKKtNYy8Vbptm7TN5IRrEPbKbpvc1Bos872cGmpWu~DSD9xTrvBu5AFOtH0vs0zkhMEdhz3mWCsHH7h9pq7gVZeatfD3upC1aWcLzTGTMaEtU1rqA2LPgTfk~e0LRAdu-4r3uKz~uvr28e04aSGGlBAkmU9vRY9GBM5FZfnJkq-iCf1AC2ChIiaUIH3jWzVqE1YE~dS2e8x4czmhVjde0Axv2Tg3MgSUi-9JmLlFJCGUBq0AbcLVLICB-GArhMGF1guVQM44ms84bnJgpJVWkxhwphgMdmzP-A4Bq6huoMhdg__";
@@ -32,6 +33,7 @@ export const SetlistDetail: React.FC<{ year: string, concert: string, table: { s
                                     }}
                                 />
                             </div>
+
                             <div className=" h-[60vh] overflow-y-auto scrollbar-hide">
                                 {[["songTitle", "곡이름"], ["artistName", "가수이름"], ["vocal", "보컬"], ["guitar", "세션(기타)"], ["bass", "세션(베이스)"],
                                 ["keyboard", "세션(키보드)"], ["drums", "세션(드럼/카혼)"], ["etc", "세션(etc)"]].map((item) => (
@@ -169,17 +171,20 @@ export const SetlistDetail: React.FC<{ year: string, concert: string, table: { s
             <div>
                 <Mobile>
                     <div className={`w-full h-[10vh] flex items-center border-b-2 border-lightgray ${open ? 'shadow-[0px_0px_10px_0px_#F2DCC2] relative' : ''}`}>
-                        <img src={liked ? fullHeart : emptyHeart} className="w-[10vw] h-[10vw] ml-[2vh] mr-[2vh]" />
+                        <img src={liked ? fullHeart : emptyHeart} className="w-[10vw] h-[10vw] ml-[2vh] mr-[2vh]"
+                            onClick={() => {
+                                {/* 좋아요 반전 */}
+                            }} />
                         <div className="">
-                            <div className="text-[#333333] font-bold text-[100%]">{title}</div>
-                            <div className="text-gray text-[80%]">{artist}</div>
+                            <div className="text-[#333333] font-bold text-2xl">{title}</div>
+                            <div className="text-gray text-base">{artist}</div>
                         </div>
                         {open && (
-                            <div className="bg-lightgray rounded-lg h-[8vw] text-[80%] text-center pr-1 pl-1 flex items-center justify-center ml-20">
+                            <div className="bg-lightgray rounded-lg h-[8vw] text-sm text-center px-2 flex items-center justify-center ml-auto mr-5">
                                 수정/삭제하기
                             </div>
                         )}
-                        <div className="ml-auto mr-[2vh]">
+                        <div className={`mr-[2vh] ${open ? '' : 'ml-auto'}`}>
                             <img src={arrow_up} className={`w-[8vw] h-[8vw] ${open ? '' : 'rotate-180'}`} />
                         </div>
                     </div>
@@ -215,14 +220,9 @@ export const SetlistDetail: React.FC<{ year: string, concert: string, table: { s
         <div>
             <Mobile>
                 <div>
-                    <div className="h-full w-full flex flex-col">
-                        <div className="items-center mt-[3.5vh] ml-[4vh] mr-[4vh] flex">
-                            <div className="font-semibold text-[#333333] text-[120%] text-center">
-                                {year} {concert}
-                                <div className="h-1 left-px [background:radial-gradient(50%_50%_at_50%_50%,rgb(242,220,194)_0%,rgb(255,255,255)_100%)]" />
-                            </div>
-                        </div>
-                        <div className="Table w-[90vw] mr-auto ml-auto ">
+                    <div className="w-full flex flex-col">
+                        <PageTitle title={year + " " + concert} />
+                        <div className="Table w-[90vw] h-[70vh] mr-auto ml-auto overflow-y-auto scrollbar-hide ">
                             {concerts.map((item) => (
                                 <div onClick={() => {
                                     setConcerts(concerts.map(concertItem =>

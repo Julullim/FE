@@ -5,6 +5,8 @@ import AddConcert from "../../components/setlist/AddConcert";
 import SelctConcert from "../../components/setlist/SelectConcert";
 import { useSearchParams } from "react-router-dom";
 import { SetlistDetail } from "./SetlistDetail";
+import MainTab from "../../components/common/MainTab";
+import Navbar from "../../components/common/Navbar";
 
 const emptyHeart = "https://s3-alpha-sig.figma.com/img/d44e/e4f7/c67e8005c7aedad495f2d819d86be9cd?Expires=1727654400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=kYuZKKLJya~9KVNTLL3HYCmpVqwaClFIAzEn-iDSIwF4TGk0cUB1TYQFoVY7PwGdblTF0c0PL-yURKD5bsMeGH4zIqd7LPAwao9RMoiT6Of59BG0NhhJrVSVUFk7j98Yovys-sEebvYQcF6H74biNPDXJqlAvfnXJ2kFV3u1qBcM~wUEaJlKZ6yABVhI-hrcG-QIiGgvnwDGAXTth8E7ULiaG5-RRqSFYCsroSPri9co901~pCDek~TnQChDd1AhVS81SkZhj1pJkoqnehDa9AipB9QMSHODHX8ag1qyZUUVCkm0bcSK3LQX43KTX4MGcvPgB3KdoIIrTLkvPKe1DA__";
 const fullHeart = "https://s3-alpha-sig.figma.com/img/ff3a/a28e/cf91dd37c4f65b8d2a97658185605e8f?Expires=1727654400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=qoVRc~PaFBg0hQFzGEkVa~UwlZDUc7v68r5vu6M2oRKKtNYy8Vbptm7TN5IRrEPbKbpvc1Bos872cGmpWu~DSD9xTrvBu5AFOtH0vs0zkhMEdhz3mWCsHH7h9pq7gVZeatfD3upC1aWcLzTGTMaEtU1rqA2LPgTfk~e0LRAdu-4r3uKz~uvr28e04aSGGlBAkmU9vRY9GBM5FZfnJkq-iCf1AC2ChIiaUIH3jWzVqE1YE~dS2e8x4czmhVjde0Axv2Tg3MgSUi-9JmLlFJCGUBq0AbcLVLICB-GArhMGF1guVQM44ms84bnJgpJVWkxhwphgMdmzP-A4Bq6huoMhdg__";
@@ -22,18 +24,6 @@ const SetlistPage: React.FC = () => {
                 "title": "만시간",
                 "artist": "Artist A",
                 "liked": true
-            },
-            {
-                "song_id": 31,
-                "title": "나의우주",
-                "artist": "Artist B",
-                "liked": false
-            },
-            {
-                "song_id": 31,
-                "title": "나의우주",
-                "artist": "Artist B",
-                "liked": false
             },
             {
                 "song_id": 31,
@@ -67,12 +57,6 @@ const SetlistPage: React.FC = () => {
                 "liked": false
             }
             ,
-            {
-                "song_id": 31,
-                "title": "나의우주",
-                "artist": "Artist B",
-                "liked": false
-            },
 
         ]
     }
@@ -86,6 +70,7 @@ const SetlistPage: React.FC = () => {
     return (
         <div className="whitespace-nowrap">
             <Mobile>
+                <MainTab />
                 <div className="setlist">
                     {year && concert ? (
                         <SetlistDetail year={year} concert={concertList[concert]} table={songs} />
@@ -153,7 +138,7 @@ const SetlistPage: React.FC = () => {
                 )}
             </PC>
 
-
+            <Navbar text="Setlist" />
         </div>
     );
 };
