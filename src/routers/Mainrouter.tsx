@@ -3,7 +3,7 @@ import LoginPage from "../routes/login/Login";
 import SignupPage from "../routes/signup/Signup";
 import LoginCallback from "../routes/login/LoginCallback";
 import MainPage from "../routes/main/Main";
-import SetlistPage from "../routes/setlists/setlist";
+import SetlistPage from "../routes/setlist/Setlist";
 
 export const mainRouter = [
 
