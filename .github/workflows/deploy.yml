@@ -33,3 +33,5 @@ jobs:
                     docker-compose down
                     docker-compose up --build -d
                     sudo docker image prune -f
+
+                    
