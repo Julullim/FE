@@ -1,0 +1,35 @@
+name: Deploy Julallim Front Server
+
+on:
+    push:
+        branches: [ develop ]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                node-version: [18.x]
+
+        steps:
+            - name: Check out Git repository
+              uses: actions/checkout@v4
+
+            - name: Install Dependencies
+              run: npm install
+
+            - name: Build React app
+              run: npm run build
+
+            - name: Execute remote commands via SSH
+              uses: appleboy/ssh-action@v0.1.6
+              with:
+                host: ${{ secrets.EC2_HOST }}
+                username: ${{ secrets.EC2_USER }}
+                key: ${{ secrets.SSH_KEY }}
+                port: 22
+                script: |
+                    docker-compose down
+                    docker-compose up --build -d
+                    sudo docker image prune -f
