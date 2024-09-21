@@ -29,8 +29,8 @@ jobs:
                 username: ${{ secrets.EC2_USER }}
                 key: ${{ secrets.SSH_KEY }}
                 port: 22
-                source: "build/*"
-                target: "/home/ec2-user/my-app/"
+                source: "dist/*"
+                target: "/home/ubuntu/"
 
             - name: Execute remote commands via SSH
               uses: appleboy/ssh-action@v0.1.6
