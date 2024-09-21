@@ -31,6 +31,7 @@ jobs:
                 port: 22
                 source: "dist/*"
                 target: "/home/ubuntu/"
+                debug: true
 
             - name: Execute remote commands via SSH
               uses: appleboy/ssh-action@v0.1.6
