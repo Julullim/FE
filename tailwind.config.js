@@ -11,13 +11,14 @@ export default {
 
       textShadow: {
         'white-blur-15': '0px 0px 15px rgba(255, 255, 255, 1)',
-        'black-blur-5' : '0px 0px 5px rgba(0, 0, 0, 0.25)'
+        'black-blur-5' : '0px 0px 5px rgba(0, 0, 0, 0.25)',
+        'm3-elavationLight-1' : '0px 1px 2px rgba(0, 0, 0, 0.3), 0px 1px 3px rgba(0, 0, 0, 0.15)',
+
       },
 
-      
-
       boxShadow:{
-        'black-blur-5' : '0px 0px 5px rgba(0, 0, 0, 0.25)'
+        'black-blur-5' : '0px 0px 5px rgba(0, 0, 0, 0.25)',
+        'inner-shadow-200' : 'inset 0px 1px 4px rgba(12, 12, 13, 0.05)'
       },
 
       fontWeight: {
@@ -43,5 +44,4 @@ export default {
     textshadow, 
   ],
 }
-
 
