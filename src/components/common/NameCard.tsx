@@ -1,11 +1,15 @@
 import React from "react";
 
 interface NameCardProps {
-  nameList: string[];
-  onRemoveName: (name: string) => void; // 외부에서 이름을 삭제하는 함수
+  nameList: string[] | null; 
+  onRemoveName: (name: string) => void; 
 }
 
 const NameCard: React.FC<NameCardProps> = ({ nameList, onRemoveName }) => {
+  if (!nameList || nameList.length === 0) {
+    return null;
+  }
+
   return (
     <div className="flex gap-[2.3vw]">
       {nameList.map((name) => (
