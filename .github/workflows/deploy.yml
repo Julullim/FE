@@ -36,13 +36,13 @@ jobs:
 
             - name: Build Docker image
               run: |
-                export DOCKER_BUILDKIT=1
-                docker build --no-cache -t julallim_front .
-            
+                echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV  # BuildKit 활성화
+                docker build --no-cache -t julallim_front .  # 현재 디렉토리에서 빌드
+
             - name: Save Docker image as tar
               run: docker save -o julallim_front.tar julallim_front
 
-            - name: Copy files to EC2
+            - name: Copy Docker image to EC2
               uses: appleboy/scp-action@v0.1.0
               with:
                 host: ${{ secrets.EC2_HOST }}
