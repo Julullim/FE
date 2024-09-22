@@ -44,7 +44,7 @@ jobs:
                 username: ${{ secrets.EC2_USER }}
                 key: ${{ secrets.SSH_KEY }}
                 port: 22
-                source: "dist/*"
+                source: "Dockerfile, dist/*"
                 target: "/home/ubuntu/"
 
             - name: Execute remote commands via SSH
@@ -55,6 +55,7 @@ jobs:
                 key: ${{ secrets.SSH_KEY }}
                 port: 22
                 script: |
+                    docker build -t julallim_front /home/ubuntu/
                     docker-compose down
-                    docker-compose up --build -d
+                    docker-compose up -d
                     sudo docker image prune -f
