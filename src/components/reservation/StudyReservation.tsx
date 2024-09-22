@@ -1,11 +1,16 @@
 import {React, useState} from "react";
 import { Mobile, PC } from "../../routes/Layout";
 import { Form } from "react-bootstrap";
+import NameCard from "../common/NameCard";
 
 const StudyReservation : React.FC = () =>{
     const [mentorId, setMentorId] = useState<string>('');
     const [mentorName, setMentorName] = useState<string>('');
     const [menteeIdList, setMenteeIdList] = useState<string[]>('');
+
+    const removeName = (name: string) => {
+        setMenteeIdList((prev) => prev.filter((n) => n !== name));
+      };
 
 
     return(
@@ -23,6 +28,7 @@ const StudyReservation : React.FC = () =>{
                                 placeholder="김멘토"
                             />
 
+
                         </div>
 
                         <div className="w-[93vw] h-[15.6vh] border-lightgray shadow-inner-shadow-200 rounded-[0.5vh] pl-[4.2vw] pt-[2.3vh]">
@@ -33,6 +39,8 @@ const StudyReservation : React.FC = () =>{
                                 onChange={(e) => setMentorName(e.target.value)}
                                 placeholder="김멘티"
                             />
+
+                            <NameCard nameList={menteeIdList} onRemoveName={removeName}/>
 
                         </div>
 
