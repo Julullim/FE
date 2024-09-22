@@ -35,7 +35,12 @@ jobs:
                 ssh-add id_rsa
 
             - name: Build Docker image
-              run: docker build --no-cache -t julallim_front .  # Docker 이미지 빌드
+              run: |
+                export DOCKER_BUILDKIT=1
+                docker build --no-cache -t julallim_front
+            
+            - name: Save Docker image as tar
+              run: docker save -o julallim_front.tar julallim_front
 
             - name: Copy files to EC2
               uses: appleboy/scp-action@v0.1.0
@@ -44,7 +49,7 @@ jobs:
                 username: ${{ secrets.EC2_USER }}
                 key: ${{ secrets.SSH_KEY }}
                 port: 22
-                source: "Dockerfile, dist/*"
+                source: "julallim_front.tar"
                 target: "/home/ubuntu/"
 
             - name: Execute remote commands via SSH
@@ -55,7 +60,8 @@ jobs:
                 key: ${{ secrets.SSH_KEY }}
                 port: 22
                 script: |
-                    docker build -t julallim_front /home/ubuntu/
+                    # Docker 이미지 로드 및 컨테이너 실행
+                    docker load -i /home/ubuntu/julallim_front.tar
                     docker-compose down
                     docker-compose up -d
                     sudo docker image prune -f
