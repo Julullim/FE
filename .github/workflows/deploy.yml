@@ -37,7 +37,7 @@ jobs:
             - name: Build Docker image
               run: |
                 export DOCKER_BUILDKIT=1
-                docker build --no-cache -t julallim_front
+                docker build --no-cache -t julallim_front .
             
             - name: Save Docker image as tar
               run: docker save -o julallim_front.tar julallim_front
