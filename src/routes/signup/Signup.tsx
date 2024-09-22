@@ -8,6 +8,7 @@ import LogoM from "../../assets/siginup/JulAllimM.png"
 import intro from "../../assets/background1.png"
 import introLogoP from "../../assets/Login/P/introLogo.png"
 import SignupForm from "../../components/signup/SignupForm";
+import NameCard from "../../components/common/NameCard";
 
 
 
@@ -17,8 +18,8 @@ import SignupForm from "../../components/signup/SignupForm";
 const SignupPage: React.FC = () => {
 
     const navigate = useNavigate();
-    const [show, setShow] = useState(true); //offcanvas 열고닫기(PC)
-    
+    const [show, setShow] = useState<boolean>(true); //offcanvas 열고닫기(PC)
+
 
     const signup = async (sId: string, name: string, cNum: number, token: string) => {
         try {
@@ -49,6 +50,7 @@ const SignupPage: React.FC = () => {
                     <SignupForm onSignup={signup} />
                 </div>
             </Mobile>
+
 
             <PC>
 
