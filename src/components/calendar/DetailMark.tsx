@@ -1,5 +1,5 @@
 import React from "react";
-import { Mobile } from "../../routes/Layout";
+import { Mobile, PC } from "../../routes/Layout";
 import { CalendarMarkProps } from "./CalendarMark";
 
 const ColorMap: { [key: number]: string } = {
@@ -24,7 +24,6 @@ const DetailMark: React.FC<CalendarMarkProps> = ({
     const ColorClass: string = ColorMap[scheduleType];
 
    
-
     // 랜더링 마크 분기
     const renderMarks = () => {
         return (
@@ -52,6 +51,33 @@ const DetailMark: React.FC<CalendarMarkProps> = ({
         );
     };
 
+    // 랜더링 마크 분기
+    const renderMarksPC = () => {
+        return (
+            scheduleType === 3 ? (
+                <div className="flex border-b border-lightgray h-[5.1vh] items-center">
+                    <div className=" font-medium text-darkgray text-[1.4vh] ">{formatTime(startDate)}</div>
+                    <div className="bg-blue w-[0.2vw] h-[2.8vh] ml-[0.3vw] rounded-[1vh]" />
+                    <div  className="ml-[1.2vw]">
+                        <div className="text-[1.8vh]">
+                            {content}
+                        </div>
+                        <div className="text-[1vh] text-[#7C7C7C]">
+                            {formatTime(startDate)} ~ {formatTime(endDate)}
+                        </div>
+                    </div>
+                    <div/>
+                </div>
+            ) : (
+                <div className="flex border-b border-lightgray h-[4.1vh] items-center gap-[0.9vw] w-[26.3vw]">
+                    <div className={`${ColorClass} w-[2.1vh] h-[2.1vh] rounded-full ml-[1vw]`} />
+                    <div className=" text-[1.7vh]" >{content}</div>
+                </div>
+            )
+            
+        );
+    };
+
     return (
         <div>
             <Mobile>
@@ -59,6 +85,12 @@ const DetailMark: React.FC<CalendarMarkProps> = ({
                     {renderMarks()}
                 </div>
             </Mobile>
+
+            <PC>
+                <div>
+                    {renderMarksPC()}
+                </div>
+            </PC>
         </div>
     );
 };

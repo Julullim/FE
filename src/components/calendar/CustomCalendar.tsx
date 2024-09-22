@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Mobile, PC } from "../../routes/Layout";
 import SelectButton from "./SelectButton";
 import CalendarMark from "./CalendarMark";
@@ -9,6 +9,7 @@ import calendar from "../../assets/calendar/calendar.svg";
 import deadline from "../../assets/calendar/fire.svg";
 import train from "../../assets/calendar/heart.svg";
 import CalendarModal from "./CalendarModal";
+import CalendarList from "./CalendarList";
 
 // 날짜 계산
 const getDaysInMonth = (year: number, month: number) => {
@@ -25,7 +26,6 @@ interface ScheduleData {
     personal: { practice_id: number, song_id: number, start_time: string, end_time: string, title: string }[];
 }
 
-// 데이터 변환 함수
 export const transformDataToSchedules = (data: ScheduleData): CalendarMarkProps[] => [
     ...data.common.map(item => ({
         scheduleId: item.schedule_id,
@@ -56,7 +56,8 @@ const CustomCalendar: React.FC = () => {
     const [year, setYear] = useState<number>(date.getFullYear())
     const [month, setMonth] = useState<number>(date.getMonth() + 1)
     const [selectDate, setSelectDate] = useState<Date>(date)
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [isOpen, setIsOpen] = useState<boolean>(false); 
+    const [selectWeek, setSelectWeek] = useState<Date[]>([]); 
 
     console.log("선택된 날!!" + selectDate);
     console.log("열림??" + isOpen );
@@ -82,14 +83,30 @@ const CustomCalendar: React.FC = () => {
 
     const schedules: CalendarMarkProps[] = transformDataToSchedules(data);
 
-    
-  
+    useEffect(()=>{
+       handleSelectWeek();
+
+    },[selectDate])
 
     const daysInMonth = useMemo(() => getDaysInMonth(year, month), [year, month]);
     const weeks = [];
     for (let i = 0; i < daysInMonth.length; i += 7) {
         weeks.push(daysInMonth.slice(i, i + 7));
     }
+
+    const handleSelectWeek = () => {
+        const newSelectWeek: Date[] = []; 
+        let currentDate = new Date(selectDate);
+
+        for (let i = 0; i < 7; i++) {
+            newSelectWeek.push(new Date(currentDate)); 
+            currentDate.setDate(currentDate.getDate() + 1); 
+        }
+
+        setSelectWeek(newSelectWeek);
+        console.log(newSelectWeek); 
+    };
+    
 
     const handlePrevMonth = () => {
         if (month === 1) {
@@ -119,6 +136,7 @@ const CustomCalendar: React.FC = () => {
     }
 
     const handleModalClose = () => setIsOpen(false);
+
 
 
     // 스케줄 필터링
@@ -174,6 +192,23 @@ const CustomCalendar: React.FC = () => {
         );
     };
 
+    // 렌더링PC
+    const renderSchedulesPC = (day: number | null) => {
+        const { displayedSchedules, overflowCount } = getSchedules(day);
+        const nowDate = new Date(year, month-1, day);
+
+        return (
+            <div key={day} className="text-center text-[1.7vh] h-[11.13vh] w-[8vw] relative" onClick={()=>handleselectDate(nowDate)}>
+                {day}
+                {displayedSchedules.map((schedule) => (
+                    <CalendarMark key={schedule.scheduleId} {...schedule} day={day} />
+                ))}
+                {overflowCount > 0 && <div className="text-[#A8A8A8] font-regular text-[1vh] mt-[0.75vh]">+{overflowCount}개</div>}
+            </div>
+        );
+    };
+
+
     return (
         <div>
             <Mobile>
@@ -214,7 +249,64 @@ const CustomCalendar: React.FC = () => {
             </Mobile>
 
             <PC>
-                <div></div>
+                <div>
+
+                    <div className="flex">
+
+                        <div  className="w-[55.4vw] ml-[6vw]">
+                            <div className="flex items-center justify-center h-[3vh] gap-[1.4vw] mt-[12.6vh]">
+                                <img src={back} className="h-full w-auto" onClick={handlePrevMonth} />
+                                <div className="text-[#333333] font-semibold text-[2.7vh] ">
+                                    {year}년 {month}월
+                                </div>
+                                <img src={next} className="h-full w-auto" onClick={handleNextMonth} />
+                            </div>
+
+                            <div className="flex justify-end gap-[1.2vw] mt-[4vh] ml-[5.8vw]">
+                                <SelectButton title="일정" img={calendar} bgColor="main" textColor="black" />
+                                <SelectButton title="마감" img={deadline} bgColor="red" textColor="white" />
+                                <SelectButton title="합주" img={train} bgColor="blue" textColor="white" />
+                            </div>
+
+                            <div className="h-[74.5vh] mt-[2.9vh]">
+                                <div className="grid grid-cols-7 mb-[1vh]">
+                                    {['일', '월', '화', '수', '목', '금', '토'].map((day, idx) => (
+                                        <div key={idx} className="w-[8vw] text-center font-regular text-[1.7vh]">{day}</div>
+                                    ))}
+                                </div>
+
+                                {weeks.map((week, index) => (
+                                    <div key={index}>
+                                        <div className="h-[0.2vh] bg-lightgray mb-[1vh]"/>
+                                        <div className="grid grid-cols-7">
+                                            {week.map(day => renderSchedulesPC(day))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            
+
+                        </div>
+
+                        
+                        <div className="ml-[5vw]">
+                            {selectWeek.map((sw) => (
+                                <CalendarList date={sw}/>
+                            ))}
+                            
+                        </div>
+                        
+                        
+                        
+
+                        
+
+                        
+                    </div>
+
+                    
+                </div>
             </PC>
         </div>
     );

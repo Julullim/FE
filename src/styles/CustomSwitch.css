@@ -15,3 +15,20 @@
 }
 
 
+.custom-switch-PC .form-check-input:checked {
+    background-color: #F2F2F2; /* 체크된 상태 색상 */
+    border: none;
+   
+}
+.custom-switch-PC .form-check-input {
+    background-color: #F2F2F2; /* 기본 상태 색상 */
+    border: none;
+    width: 5.8vw;
+    
+}
+
+.custom-switch-PC{
+    margin-left: 17.5vw;
+}
+
+

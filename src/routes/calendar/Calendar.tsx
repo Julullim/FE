@@ -1,11 +1,13 @@
-import React from "react";
+import {React} from "react";
 import { Mobile, PC } from "../Layout";
 import Navbar from "../../components/common/Navbar";
 import MainTab from "../../components/common/MainTab";
 import CustonCalendar from "../../components/calendar/CustomCalendar";
+import background from "../../assets/background1.png"
 
 
 const CalendarPage: React.FC=()=>{
+
     return(
         <div>
             <Mobile>
@@ -21,7 +23,14 @@ const CalendarPage: React.FC=()=>{
 
             <PC>
                 <div>
-                    캘린더 페이지임당
+                    <Navbar text='calendar'/>
+                    <img src={background} className="w-full h-[27.8vh] object-cover" />
+                    <div className="font-bold text-[4.5vh] flex justify-center mt-[7.1vh]">캘린더</div>
+                    <CustonCalendar/>
+                    
+
+                
+
                 </div>
 
             </PC>

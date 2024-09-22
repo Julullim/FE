@@ -1,5 +1,5 @@
 import React from "react";
-import { Mobile } from "../../routes/Layout";
+import { Mobile, PC } from "../../routes/Layout";
 
 export interface CalendarMarkProps {
     scheduleId: number;
@@ -65,6 +65,18 @@ const CalendarMark: React.FC<CalendarMarkProps> = ({
                     ''
                 }
             </Mobile>
+
+            <PC>
+                {
+                     shouldDisplayContent ? 
+                     <div className={`${bgClass} flex items-center justify-center w-[7.7vw] h-[2.4vh] text-[1vh] font-regular mt-[0.5vh]`}>
+                         {displayedContent}
+                     </div>
+                 :
+                 ''
+
+                }
+            </PC>
         </div>
     );
 };

@@ -12,8 +12,6 @@ import SignupForm from "../../components/signup/SignupForm";
 
 
 
-
-
 const SignupPage: React.FC = () => {
 
     const navigate = useNavigate();

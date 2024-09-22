@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { kakaoLogin } from "../../libs/apis/user";
-import { checkUser } from "../../libs/apis/user";
 import useUserLoginStore from "../../store/useUserLogin";
 import { BeatLoader } from "react-spinners";
 
@@ -20,8 +19,8 @@ const LoginCallback: React.FC = () => {
                 if (code) {
                     console.log("Code:", code);
                     const data = await kakaoLogin(code);
-                    console.log(data);
 
+                    console.log(data.result.accessToken);
                     addToken(data.result.accessToken); 
                     
                     if(data.result.newUser){

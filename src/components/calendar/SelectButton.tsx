@@ -34,9 +34,9 @@ const SelectButton: React.FC<SelectButtonProps> = ({title, img, bgColor, textCol
             </Mobile>
 
             <PC>
-                <div className={`${bgClass} ${textClass} flex`}>
-                    <img src={img} alt={title} className="mb-2" />
-                    <div>{title}</div>
+                <div className={`${bgClass} ${textClass} flex items-center justify-center w-[6.8vw] h-[3.3vh] rounded-[1vh]`}>
+                    <img src={img} alt={title} className="h-[2.9vh] w-auto"/>
+                    <div className="text-[1.8vh]">{title}</div>
                 </div>
             </PC>
         </div>
