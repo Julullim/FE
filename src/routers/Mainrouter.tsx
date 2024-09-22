@@ -4,6 +4,7 @@ import SignupPage from "../routes/signup/Signup";
 import LoginCallback from "../routes/login/LoginCallback";
 import MainPage from "../routes/main/Main";
 import SetlistPage from "../routes/setlists/setlist";
+import ReservationPage from "../routes/reservation/Reservation";
 
 export const mainRouter = [
 
@@ -79,7 +80,7 @@ export const mainRouter = [
     
         path: "/reservation",
         element:(
-           <LoginPage/>
+           <ReservationPage/>
         )
        
     },
