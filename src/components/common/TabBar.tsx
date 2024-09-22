@@ -7,7 +7,7 @@ const TabBar: React.FC<{ text: string }> = ({ text }) => {
     const navigate = useNavigate();
 
     return (
-        <div className="w-[100vw] h-[10.4vh] flex items-center absolute top-0">
+        <div className="w-[100vw] h-[10.4vh] flex items-center fixed top-0 bg-white">
             <img 
                 className='w-auto h-[3.8vh] ml-[2.5vw]' 
                 src={arrow} 
