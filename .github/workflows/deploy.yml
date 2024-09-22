@@ -34,6 +34,9 @@ jobs:
                 eval "$(ssh-agent -s)"
                 ssh-add id_rsa
 
+            - name: Build Docker image
+              run: docker build --no-cache -t julallim_front .  # Docker 이미지 빌드
+
             - name: Copy files to EC2
               uses: appleboy/scp-action@v0.1.0
               with:
