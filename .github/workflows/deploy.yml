@@ -16,6 +16,11 @@ jobs:
             - name: Check out Git repository
               uses: actions/checkout@v4
 
+            - name: Set up Node.js
+              uses: actions/setup-node@v2
+              with:
+                node-version: ${{ matrix.node-version }}
+
             - name: Install Dependencies
               run: npm install
 
@@ -29,14 +34,22 @@ jobs:
                 eval "$(ssh-agent -s)"
                 ssh-add id_rsa
 
-            - name: Copy files to EC2
+            - name: Build Docker image
+              run: |
+                echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV  # BuildKit 활성화
+                docker build --no-cache -t julallim_front .  # 현재 디렉토리에서 빌드
+
+            - name: Save Docker image as tar
+              run: docker save -o julallim_front.tar julallim_front
+
+            - name: Copy Docker image to EC2
               uses: appleboy/scp-action@v0.1.0
               with:
                 host: ${{ secrets.EC2_HOST }}
                 username: ${{ secrets.EC2_USER }}
                 key: ${{ secrets.SSH_KEY }}
                 port: 22
-                source: "dist/*"
+                source: "julallim_front.tar"
                 target: "/home/ubuntu/"
 
             - name: Execute remote commands via SSH
@@ -47,6 +60,8 @@ jobs:
                 key: ${{ secrets.SSH_KEY }}
                 port: 22
                 script: |
+                    # Docker 이미지 로드 및 컨테이너 실행
+                    docker load -i /home/ubuntu/julallim_front.tar
                     docker-compose down
-                    docker-compose up --build -d
+                    docker-compose up -d
                     sudo docker image prune -f
