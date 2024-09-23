@@ -2,19 +2,40 @@ import {React, useState} from "react";
 import { Mobile, PC } from "../../routes/Layout";
 import { Form } from "react-bootstrap";
 
+const addDays = (date: Date, days: number) => {
+    const result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+};
+
 
 const RoomReservation : React.FC = () =>{
     const [songTitle, setSongTitle] = useState<string>('곡이름');
     const [songId, setSongId] = useState<string>('');
-    const [data, setData] = useState<string[]>(['무한적아','무한도전', '무한도적', '무한한', '가능한']);
+    const [data, setData] = useState<string[]>(['무한적아','무한도전', '무한도적', '무한한', '가능한', '집', '보내줘요']);
+    const [selectDate, setSelectDate] = useState<Date>(new Date());
+    const [selectWeek, setSelectWeek] = useState<Date[]>([]);
 
 
-    const handleSong = (key:string, title:string) =>{
-        setSongId(key);
+    const handleSong = (title:string) =>{
+
         setSongTitle(title);
         setData(null);
         console.log("노래제목!!" , songTitle)
     }
+
+    const handleSelectWeek = () => {
+        const newSelectWeek: Date[] = []; 
+        let currentDate = new Date(selectDate);
+
+        for (let i = 0; i < 14; i++) {
+            newSelectWeek.push(new Date(currentDate)); 
+            currentDate.setDate(currentDate.getDate() + 1); 
+        }
+
+        setSelectWeek(newSelectWeek);
+        console.log(newSelectWeek); 
+    };
 
     return(
 
@@ -34,9 +55,10 @@ const RoomReservation : React.FC = () =>{
                 <div className="bg-white w-[84vw] pl-[4.2vw] pt-[1vh] shadow-md rounded-b-[10px] relative z-10">
                     <div className="w-[80vw] h-[16vh] overflow-y-auto">
                         {data.map((title, id) => (
-                            <div key={id} className="text-darkgray text-[1.6vh] mb-[1vh]" onClick={()=>handleSong(id, title)}>{title}</div>
+                            <div key={id} className="text-darkgray text-[1.6vh] mb-[1vh]" onClick={()=>handleSong(title)}>{title}</div>
                         ))}
                     </div>   
+
                 </div>
             
             
@@ -49,6 +71,8 @@ const RoomReservation : React.FC = () =>{
 
             <div className="w-[93vw] h-[40vh] border-lightgray shadow-inner-shadow-200 rounded-[0.5vh] pl-[4.2vw] pt-[2.3vh]">
                 <div className="mb-[2.2vh]">날짜와 시간을 선택해주세요</div>
+
+
             </div>
 
             <div className="flex justify-center" >
