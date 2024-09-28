@@ -69,6 +69,60 @@ const StudyReservation : React.FC = () =>{
                     </div>
 
             </Mobile>
+
+            <PC>
+                <div className="mt-[2.1vh] flex flex-col items-center gap-[3.6vh]">
+
+                    <div className="w-[34.3vw] h-[11vh] border-lightgray shadow-inner-shadow-200 rounded-[0.5vh] pl-[1.5vw] pt-[2.3vh]">
+                        <div className="mb-[2.2vh]">멘토 이름을 입력해주세요</div>
+                        <Form.Control
+                            className="w-[31vw] h-[3.4vh] border-lightgray placeholder-textgray"
+                            value={mentorName}
+                            onChange={(e) => setMentorName(e.target.value)}
+                            placeholder="김멘토"
+                        />
+
+
+                    </div>
+
+                    <div className="w-[34.3vw] h-[14vh] border-lightgray shadow-inner-shadow-200 rounded-[0.5vh] pl-[1.5vw] pt-[2.3vh]">
+                        <div className="mb-[2.2vh]">멘티 이름을 입력해주세요</div>
+                        <Form.Control
+                            className="w-[31vw] h-[3.4vh] border-lightgray placeholder-textgray"
+                            value={mentorName}
+                            onChange={(e) => setMentorName(e.target.value)}
+                            placeholder="김멘티"
+                        />
+
+                        <div className="mt-[0.9vh]">
+                            <NameCard nameList={menteeIdList} onRemoveName={removeName}/>
+                        </div>
+                        
+                    </div>
+
+                    <div className="w-[34.3vw] h-[14vh] border-lightgray shadow-inner-shadow-200 rounded-[0.5vh] pl-[1.5vw] pt-[2.3vh]">
+                        <div className="mb-[2.2vh]">요일과 시간을 입력해주세요</div>
+                        <Form.Control
+                            className="w-[31vw] h-[3.4vh] border-lightgray placeholder-textgray"
+                            value={mentorName}
+                            onChange={(e) => setMentorName(e.target.value)}
+                            placeholder="김멘티"
+                        />
+
+                        
+                        
+                    </div>
+
+                    <div className="flex justify-center" >
+                        <div className="mt-[2.1vh] flex bg-yellow justify-center items-center  w-[13vw] h-[4.4vh] rounded-[1vh] text-[1.8vh]">
+                            신청하기
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </PC>
         </div>
 
        

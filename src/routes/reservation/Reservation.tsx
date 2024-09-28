@@ -59,7 +59,7 @@ const ReservationPage : React.FC = () =>{
 
                     <div className="font-bold text-[4.5vh] flex justify-center mt-[7.1vh]">악기스터디 신청</div>
                     <div className="ml-[9.2vw] mt-[7vh] flex">
-                        <img className="h-[37.6vh] x-auto" src={timeTableImg}/>
+                        <img className="h-[37.6vh] x-auto mr-[3vw]" src={timeTableImg}/>
                         <StudyReservation/>
                     </div>
                     
