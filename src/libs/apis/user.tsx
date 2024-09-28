@@ -1,22 +1,10 @@
 import instance from "./base";
 
-//회원가입
-export const kakaoLogin = async (code:string) => {
-    const resp = await instance.get(`/user/callback/kakao?code=${code}`);
-    //console.log(resp.data)
+export const Login = async () =>{
+    const resp = await instance.get(`/user`);
+    console.log("악");
     return resp.data;
-
-};
-
-//회원 확인
-export const checkUser = async (token: string) => {
-    const resp = await instance.get(`user/info`, {
-        headers: {
-            authorization: `${token}`
-        }
-    });
-    return resp.data;
-};
+}
 
 //회원 정보 입력(회원가입 단계)
 export const setUserInfo = async (sid: string, name: string, cn: number, token: string) => {

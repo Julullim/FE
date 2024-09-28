@@ -9,9 +9,12 @@ import kakaoLoginP from "../../assets/Login/P/kakaoLogin.png"
 
 
 
+
+
 const LoginPage: React.FC = () => {
     const [isAnimatedM, setIsAnimatedM] = useState<boolean>(false);
     const [isAnimatedP, setIsAnimatedP] = useState<boolean>(false);
+    const KAKAO_URL = import.meta.env.VITE_KAKAO_URL
 
     
    
@@ -29,19 +32,6 @@ const LoginPage: React.FC = () => {
 
     }, []);  
 
-    // 카카오로그인
-    const handleKakaoLogin = () => {
-        
-        const KAKAO_KEY = import.meta.env.VITE_KAKAO_KEY; 
-        const REDIRECT_URI = encodeURIComponent('http://localhost:5173/login/callback/kakao');
-        
-        console.log(KAKAO_KEY)
-        console.log(REDIRECT_URI)       
-      
-        const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${KAKAO_KEY}&redirect_uri=${REDIRECT_URI}`;
-      
-        window.location.href = kakaoAuthUrl; 
-    };
 
     return (
         <div>
@@ -64,8 +54,10 @@ const LoginPage: React.FC = () => {
 
                         {isAnimatedM? 
                             
-                            <div className="flex justify-center items-end absolute bottom-[7.6vh] left-0 right-0" onClick={handleKakaoLogin}>
-                                <img className=' w-auto h-[7.9vh]' src={kakaoLoginM} />
+                            <div className="flex justify-center items-end absolute bottom-[7.6vh] left-0 right-0" >
+                                <a href={KAKAO_URL}>
+                                    <img className='w-auto h-[7.9vh]' src={kakaoLoginM} alt="카카오 로그인"/>
+                                </a>
                             </div>
                           
                         
@@ -105,8 +97,10 @@ const LoginPage: React.FC = () => {
 
                         {isAnimatedP? 
                             
-                            <div className="flex justify-center items-end absolute bottom-[14vh] left-0 right-0" onClick={handleKakaoLogin}>
-                                <img className=' w-auto h-[7.3vh]' src={kakaoLoginP} />
+                            <div className="flex justify-center items-end absolute bottom-[14vh] left-0 right-0" >
+                                <a href={KAKAO_URL}>
+                                    <img className=' w-auto h-[7.3vh]' src={kakaoLoginP} />
+                                </a>     
                             </div>
                           
                         
