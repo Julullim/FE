@@ -3,6 +3,8 @@ import { Mobile, PC } from "../Layout";
 import Navbar from "../../components/common/Navbar";
 import MainTab from "../../components/common/MainTab";
 import background from "../../assets/background1.png"
+import infoImg from "../../assets/reservation/info.svg"
+import timeTableImg from "../../assets/reservation/timetable.svg"
 import RoomReservation from "../../components/reservation/RoomReservation";
 import StudyReservation from "../../components/reservation/StudyReservation";
 
@@ -26,7 +28,7 @@ const ReservationPage : React.FC = () =>{
 
                         <div className="flex justify-center" >
                             <div className="mt-[2.1vh] flex bg-yellow justify-center items-center w-[53vw] h-[5vh] rounded-[1vh] text-[2.1vh]">
-                                곡리스트 확인하기
+                               곡 리스트 확인하기
                             </div>
                         </div>
 
@@ -45,6 +47,22 @@ const ReservationPage : React.FC = () =>{
 
             <PC>
                 <div>
+                    <Navbar text='reservation'/>
+                    <img src={background} className="w-full h-[27.8vh] object-cover" />
+                    <div className="font-bold text-[4.5vh] flex justify-center mt-[7.1vh]">동방 예약</div>
+
+                    <div className="ml-[9.2vw] mt-[7vh] flex">
+                        <img className="h-[47vh] x-auto mr-[3vw]" src={infoImg} />
+                        <RoomReservation/>
+                    </div>
+
+
+                    <div className="font-bold text-[4.5vh] flex justify-center mt-[7.1vh]">악기스터디 신청</div>
+                    <div className="ml-[9.2vw] mt-[7vh] flex">
+                        <img className="h-[37.6vh] x-auto" src={timeTableImg}/>
+                        <StudyReservation/>
+                    </div>
+                    
 
                 </div>
 

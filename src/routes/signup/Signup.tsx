@@ -8,7 +8,7 @@ import LogoM from "../../assets/siginup/JulAllimM.png"
 import intro from "../../assets/background1.png"
 import introLogoP from "../../assets/Login/P/introLogo.png"
 import SignupForm from "../../components/signup/SignupForm";
-import NameCard from "../../components/common/NameCard";
+
 
 
 

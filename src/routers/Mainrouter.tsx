@@ -1,7 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import LoginPage from "../routes/login/Login";
 import SignupPage from "../routes/signup/Signup";
-import LoginCallback from "../routes/login/LoginCallback";
 import MainPage from "../routes/main/Main";
 import SetlistPage from "../routes/setlists/setlist";
 import ReservationPage from "../routes/reservation/Reservation";
@@ -22,15 +21,6 @@ export const mainRouter = [
         path: "/login",
         element:(
            <LoginPage/>
-        )
-       
-    },
-
-    {
-    
-        path: "/login/callback/kakao",
-        element:(
-           <LoginCallback/>
         )
        
     },
