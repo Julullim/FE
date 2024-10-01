@@ -4,6 +4,7 @@ import MainTab from '../../components/common/MainTab';
 import PageTitle from '../../components/common/PageTitle';
 import { Nav } from 'react-bootstrap';
 import Navbar from '../../components/common/Navbar';
+import { getNoticeList } from '../../libs/apis/notice';
 
 const arrowimg: string = "src/assets/common/etc/gray_arrow.png";
 
@@ -13,15 +14,16 @@ interface NoticeItemProps {
     noticeID: number;
 }
 
-const NoticeItem: React.FC<NoticeItemProps> = ({ date, title, noticeID }) => (
-    <Link to={`/notice?id=${noticeID}`}>
+const NoticeItem: React.FC<NoticeItemProps> = (Notice) => (
+    console.log("Notice: ", Notice),
+    <Link to={`/notice?id=${Notice.noticeID}`}>
         <div className="relative w-full h-20">
             <div className="relative w-full h-full bg-[#ffffff] border-b-2 border-light-gray">
                 <div className="absolute w-1/4 top-2/3 left-2 font-medium text-[#9a9a9a] text-sm tracking-tight leading-normal whitespace-nowrap">
-                    {date}
+                    {Notice.date}
                 </div>
                 <p className="absolute w-3/4 top-4 left-1 font-semibold text-[#333333] text-xl tracking-tight leading-normal line-clamp-1">
-                    {title}
+                    {Notice.title}
                 </p>
                 <img
                     className="absolute w-6 h-6 top-1/3 right-1"
@@ -33,67 +35,50 @@ const NoticeItem: React.FC<NoticeItemProps> = ({ date, title, noticeID }) => (
     </Link>
 );
 
-const NoticeList: React.FC = () => {
+const NoticeList: React.FC = ({ }) => {
     const imgsrc: string = "https://s3-alpha-sig.figma.com/img/233a/2415/af59911c8eb4c151b5b673b70ac90d6f?Expires=1726444800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=auXJf1cIO2mhbgWen~jUYHbqxkCkhVU8kc4kFLI~1PWsI9422utCpZXQB9mlLIusuhHG4WVHGDdqDbi73tTRBaibAxJImqsBtLhsT4Qc9dhAAHDLqd48d90c6aL9JFW6H2wGRarlMbml7MCZM3jnCYDhcyjCtYbOB80YeL-U0VRu~k1TvjytJfcQx~3QsYzWnzUC9KLxyBe~0i1CuqVFo3Dfta~zG2XsJoz5YsF0HnD776ME2wfujc1tSZs0ChAPiScjQVS16guLwrsNKl9049g38zVNX6tW-XmvUf9f7sfTJImCZJuMbo1jo26ANUSk9YKj0OqiIVyNeI0ImWDUWg__";
-
-    const response = {
-        isSuccess: true,
-        code: 2000,
-        message: "success!",
-        result: [
-            { notice_id: 12, title: "페이징테스트", created_at: "2024-09-14T10:51:55.000Z" },
-            { notice_id: 11, title: "페이징테스트", created_at: "2024-09-14T10:51:53.000Z" },
-            { notice_id: 10, title: "공지제목", created_at: "2024-09-14T10:03:01.000Z" },
-            { notice_id: 9, title: "공지제목만 수정", created_at: "2024-09-14T10:02:37.000Z" },
-            { notice_id: 8, title: "줄알림", created_at: "2024-08-29T07:58:19.000Z" },
-            { notice_id: 7, title: "줄알림", created_at: "2024-08-29T07:57:47.000Z" },
-            { notice_id: 6, title: "줄알림", created_at: "2024-08-29T07:57:12.000Z" },
-            { notice_id: 5, title: "줄알림", created_at: "2024-08-29T07:56:41.000Z" },
-            { notice_id: 4, title: "줄알림", created_at: "2024-08-29T07:56:28.000Z" }
-        ]
-    };
 
     const [noticeList, setNoticeList] = useState<NoticeItemProps[]>([]);
     const [page, setPage] = useState<number>(1);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const fetchData = async () => {
+        setIsLoading(true);
+        const data = await getNoticeList(page);
+        setNoticeList((prevNoticeList) => [
+            ...prevNoticeList,
+            ...data.map((item) => ({
+                date: item.created_at.replace(/T/, ' ').substring(0, 16),
+                title: item.title,
+                noticeID: item.notice_id,
+            }))]);
+        setIsLoading(false);
+    };
+
+    const handleObserver = (entries: IntersectionObserverEntry[]) => {
+        const target = entries[0];
+        if (target.isIntersecting && !isLoading) {
+            setPage((prevPage) => prevPage + 1);
+
+        }
+    };
+
 
     useEffect(() => {
-        setNoticeList(response.result.map((item) => ({
-            date: item.created_at.replace(/T/, ' ').substring(0, 16),
-            title: item.title,
-            noticeID: item.notice_id
-        })));
-    }, []);
-
-    const handleScroll = useCallback((): void => {
-        const noticeListElement = document.querySelector('.noticeList');
-        if (noticeListElement) {
-            const { scrollHeight, scrollTop, clientHeight } = noticeListElement;
-            if (scrollTop + clientHeight >= scrollHeight - 10) {
-                setPage((prevPage) => prevPage + 1);
-                setNoticeList((prevNoticeList) => [
-                    ...prevNoticeList,
-                    ...response.result.map((item) => ({
-                        date: item.created_at.replace(/T/, ' ').substring(0, 16),
-                        title: item.title,
-                        noticeID: item.notice_id
-                    }))
-                ]);
-            }
+        const observer = new IntersectionObserver(handleObserver, {
+            threshold: 0, //  Intersection Observer의 옵션, 0일 때는 교차점이 한 번만 발생해도 실행, 1은 모든 영역이 교차해야 콜백 함수가 실행.
+        });
+        // 최하단 요소를 관찰 대상으로 지정함
+        const observerTarget = document.getElementById("observer");
+        // 관찰 시작
+        if (observerTarget) {
+            observer.observe(observerTarget);
         }
     }, []);
 
     useEffect(() => {
-        const noticeListElement = document.querySelector('.noticeList');
-        if (noticeListElement) {
-            noticeListElement.addEventListener('scroll', handleScroll, true);
-        }
-
-        return () => {
-            if (noticeListElement) {
-                noticeListElement.removeEventListener('scroll', handleScroll, true);
-            }
-        };
-    }, [handleScroll]);
+        fetchData();
+    }, [page]);
 
     return (
         <div>
@@ -111,9 +96,16 @@ const NoticeList: React.FC = () => {
                     </div>
 
                     <div className="relative w-full h-auto mt-8 px-4">
-                        {noticeList.map((item) => (
-                            <NoticeItem key={item.noticeID} date={item.date} title={item.title} noticeID={item.noticeID} />
-                        ))}
+                        {noticeList.length === 0 ? (
+                            <div className="flex justify-center items-center h-20">
+                                <p className="text-lg text-center text-gray-400">공지사항이 없습니다<br />(불러오지 못했습니다)</p>
+                            </div>
+                        ) : (
+                            noticeList.map((item, index) => (
+                                <NoticeItem key={index} date={item.date} title={item.title} noticeID={item.noticeID} />
+                            ))
+                        )}
+                        <div id="observer" className="h-20" />
                     </div>
                 </div>
             </div>

@@ -3,7 +3,7 @@ import instance from "./base";
 //회원가입
 export const kakaoLogin = async (code:string) => {
     const resp = await instance.get(`/user/callback/kakao?code=${code}`);
-    //console.log(resp.data)
+    console.log(resp.data)
     return resp.data;
 
 };

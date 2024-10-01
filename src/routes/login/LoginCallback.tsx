@@ -17,6 +17,7 @@ const LoginCallback: React.FC = () => {
             try {
                 const params = new URLSearchParams(location.search);
                 const code = params.get("code");
+                console.log(location)
                 if (code) {
                     console.log("Code:", code);
                     const data = await kakaoLogin(code);

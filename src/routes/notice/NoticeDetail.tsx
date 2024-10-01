@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Subjective, Voted, Vote } from '../../components/survey/forms';
 import Navbar from '../../components/common/Navbar';
 import MainTab from '../../components/common/MainTab';
+import { Mobile } from '../Layout';
 
-interface Notice {
+export interface Notice {
     id: string;
     title: string;
     content: string;
@@ -12,7 +13,7 @@ interface Notice {
 
 }
 
-interface Question {
+export interface Question {
     survey_id: number;
     question_type: string;
     question_text: string;
@@ -55,33 +56,66 @@ const NoticeDetail: React.FC<{ noticeID: String }> = ({ noticeID }) => {
             "message": "success!",
             "result": {
                 "notice": {
-                    "notice_id": 26,
+                    "notice_id": 38,
                     "title": "공지 제목",
-                    "content": "🥁줄울림에서 커스텀 드럼스틱을 제작합니다!🥁\n\n줄울림 커스텀 드럼스틱 수요조사를 하려고 합니다. 디자인 시안은 다음 그림의 글씨에 영어로 “Julullim”이 새겨질 예정입니다. 스틱은 메이플 5A 입니다.\n\n가격은 개당 10,000원입니다. 커스텀 드럼스틱을 원하시는 분들은 아래 댓글에 수량을 적어주시기 바랍니다.\n\n\n*마감기한: ~4/22",
-                    "link": null,
-                    "imgs": ['https://s3-alpha-sig.figma.com/img/1120/b33b/280f8b012e44cdcf3502ac4476a2acd7?Expires=1727654400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=E6WwRR6LcrFnLMCPa8wNmIwlMIgarkELOAqsEC-uVka6S2CZrvirIfGTfXwvqEgb3JNKQSRNMRw-hNbo14thrBe239k979q1fJYE6PvS7xbaePewXGWapm8aqBgXmJWlit2wi-swV48HanEJavDaMwkT75Pc8KdmqU0C7Bu6q5iKzdTxNg1K64LgKWBd1fc7vKrx0BqQUKpv-XNsQihjhb49RPFwvVsXXbxOPxyGhsmQobnU-QtN3AyKt93vcOe4xcJ8TBf7gH3QQKrOWNP5NPjmxxqJteToBOpF8IKk81eWig1m2CTBLEhwvaSFiLyQEFYJrXJUwW6vcukK7wRN8A__',
+                    "content": "공지 내용",
+                    "img": ['https://s3-alpha-sig.figma.com/img/1120/b33b/280f8b012e44cdcf3502ac4476a2acd7?Expires=1727654400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=E6WwRR6LcrFnLMCPa8wNmIwlMIgarkELOAqsEC-uVka6S2CZrvirIfGTfXwvqEgb3JNKQSRNMRw-hNbo14thrBe239k979q1fJYE6PvS7xbaePewXGWapm8aqBgXmJWlit2wi-swV48HanEJavDaMwkT75Pc8KdmqU0C7Bu6q5iKzdTxNg1K64LgKWBd1fc7vKrx0BqQUKpv-XNsQihjhb49RPFwvVsXXbxOPxyGhsmQobnU-QtN3AyKt93vcOe4xcJ8TBf7gH3QQKrOWNP5NPjmxxqJteToBOpF8IKk81eWig1m2CTBLEhwvaSFiLyQEFYJrXJUwW6vcukK7wRN8A__',
                         'https://s3-alpha-sig.figma.com/img/1120/b33b/280f8b012e44cdcf3502ac4476a2acd7?Expires=1727654400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=E6WwRR6LcrFnLMCPa8wNmIwlMIgarkELOAqsEC-uVka6S2CZrvirIfGTfXwvqEgb3JNKQSRNMRw-hNbo14thrBe239k979q1fJYE6PvS7xbaePewXGWapm8aqBgXmJWlit2wi-swV48HanEJavDaMwkT75Pc8KdmqU0C7Bu6q5iKzdTxNg1K64LgKWBd1fc7vKrx0BqQUKpv-XNsQihjhb49RPFwvVsXXbxOPxyGhsmQobnU-QtN3AyKt93vcOe4xcJ8TBf7gH3QQKrOWNP5NPjmxxqJteToBOpF8IKk81eWig1m2CTBLEhwvaSFiLyQEFYJrXJUwW6vcukK7wRN8A__',],
-                    "created_at": "2024-09-17T18:44:08.000Z",
-                    "updated_at": "2024-09-17T18:44:08.000Z"
-                }, "questions": [
+                    
+                    "link": "http://example.com",
+                    "created_at": "2024-09-21T16:01:22.000Z",
+                    "updated_at": "2024-09-21T16:01:22.000Z"
+                },
+                "questions": [
                     {
-                        "survey_id": 15,
-                        "question_type": "multiple_choice",
-                        "question_text": "다중 선택 객관식 질문 텍스트",
+                        "survey_id": 39,
+                        "question_type": "subjective",
+                        "question_text": "주관식 질문 텍스트",
+                        "picture_id": null,
+                        "choices": []
+                    },
+                    {
+                        "survey_id": 40,
+                        "question_type": "objective",
+                        "question_text": "객관식 질문 텍스트",
+                        "picture_id": null,
                         "choices": [
                             {
-                                "choice_id": 18,
+                                "choice_id": 47,
+                                "choice_text": "옵션 1"
+                            },
+                            {
+                                "choice_id": 48,
+                                "choice_text": "옵션 2"
+                            }
+                        ]
+                    },
+                    {
+                        "survey_id": 41,
+                        "question_type": "multiple_choice",
+                        "question_text": "다중 선택 객관식 질문 텍스트",
+                        "picture_id": null,
+                        "choices": [
+                            {
+                                "choice_id": 49,
                                 "choice_text": "옵션 A"
                             },
                             {
-                                "choice_id": 19,
+                                "choice_id": 50,
                                 "choice_text": "옵션 B"
                             },
                             {
-                                "choice_id": 20,
+                                "choice_id": 51,
                                 "choice_text": "옵션 C"
                             }
                         ]
+                    },
+                    {
+                        "survey_id": 42,
+                        "question_type": "deadline",
+                        "question_text": "2024-12-31T23:59:00.000Z",
+                        "picture_id": null,
+                        "choices": []
                     }
                 ]
             }
@@ -101,14 +135,15 @@ const NoticeDetail: React.FC<{ noticeID: String }> = ({ noticeID }) => {
 
     return (
         <div className={"Notice" + noticeID.toString()}>
+            <Mobile>
             <MainTab />
 
-            <div className='w-[80vw] h-[6vh] border-b-light-gray border-b-2 z-10 ml-[10vw]'>
+            <div className='w-[80vw] h-[10vh] border-b-light-gray border-b-2 z-10 ml-[10vw]'>
                 <div className="relative w-full h-full border-light-gray">
-                    <div className="absolute w-1/4 top-2/3 left-1 font-medium text-[#9a9a9a] text-xs tracking-tight leading-normal whitespace-nowrap">
+                    <div className="absolute w-1/4 top-2/3 left-1 font-medium text-[#9a9a9a] text-sm tracking-tight leading-normal whitespace-nowrap">
                         {notice?.date}
                     </div>
-                    <p className="absolute w-3/4 top-5 left-1 font-semibold text-[#333333] text-xl tracking-tight leading-normal line-clamp-1">
+                    <p className="absolute w-3/4 top-5 left-1 font-semibold text-[#333333] text-2xl tracking-tight leading-normal line-clamp-1">
                         {notice?.title}
                     </p>
                     <img
@@ -124,8 +159,8 @@ const NoticeDetail: React.FC<{ noticeID: String }> = ({ noticeID }) => {
 
             {popFix ? <FixButton /> : null}
 
-            <div className='w-[80vw] mt-1 overflow-y-auto ml-[10vw] scrollbar-hide h-[60vh]'>
-                <p className='text-[#333333] text-sm tracking-tight leading-normal'>
+            <div className='w-[80vw] pt-3 overflow-y-auto ml-[10vw] scrollbar-hide h-[70vh]'>
+                <p className='text-[#333333] text-base tracking-tight leading-normal'>
                     {notice?.content.split('\n').map((line, index) => (
                         <span key={index}>
                             {line}
@@ -133,11 +168,11 @@ const NoticeDetail: React.FC<{ noticeID: String }> = ({ noticeID }) => {
                         </span>
                     ))}
                 </p>
-                {notice?.imgs.map((img) => (
+                {notice?.imgs?.map((img) => (
                     <img src={img} alt='notice_img' className='w-80 h-60 mt-4 object-cover' />
                 ))}
 
-                <div className='Questions'>
+                <div className='Questions mt-3'>
                     {questions.map((q) => {
                         if (q.question_type === 'multiple_choice') {
                             return <Vote key={q.survey_id} title={q.question_text} option={q.choices.map((c) => ({ opt: c.choice_text, n: 10 }))} ismulti={true} submit={true} />
@@ -151,6 +186,7 @@ const NoticeDetail: React.FC<{ noticeID: String }> = ({ noticeID }) => {
             </div>
 
             <Navbar text={"calendar"} />
+            </Mobile>
         </div>
     );
 };
