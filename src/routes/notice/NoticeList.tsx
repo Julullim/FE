@@ -15,7 +15,6 @@ interface NoticeItemProps {
 }
 
 const NoticeItem: React.FC<NoticeItemProps> = (Notice) => (
-    console.log("Notice: ", Notice),
     <Link to={`/notice?id=${Notice.noticeID}`}>
         <div className="relative w-full h-20">
             <div className="relative w-full h-full bg-[#ffffff] border-b-2 border-light-gray">
@@ -45,14 +44,17 @@ const NoticeList: React.FC = ({ }) => {
     const fetchData = async () => {
         setIsLoading(true);
         const data = await getNoticeList(page);
-        setNoticeList((prevNoticeList) => [
-            ...prevNoticeList,
-            ...data.map((item) => ({
-                date: item.created_at.replace(/T/, ' ').substring(0, 16),
-                title: item.title,
-                noticeID: item.notice_id,
-            }))]);
-        setIsLoading(false);
+        setTimeout(() => {
+            setNoticeList((prevNoticeList) => [
+                ...prevNoticeList,
+                ...data.map((item) => ({
+                    date: item.created_at.replace(/T/, ' ').substring(0, 16),
+                    title: item.title,
+                    noticeID: item.notice_id,
+                }))]);
+            setIsLoading(false);
+        }, 500);
+
     };
 
     const handleObserver = (entries: IntersectionObserverEntry[]) => {
@@ -77,6 +79,7 @@ const NoticeList: React.FC = ({ }) => {
     }, []);
 
     useEffect(() => {
+        console.log("Page Load: ",page);
         fetchData();
     }, [page]);
 
