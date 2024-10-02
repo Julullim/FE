@@ -1,6 +1,12 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 
-const WheelPicker = ({ options, height, setFunc }) => {
+interface WheelPickerProps {
+    options: any[];
+    height: number;
+    setFunc: (value: any) => void;
+}
+
+const WheelPicker: React.FC<WheelPickerProps> = ({ options, height, setFunc }) => {
     const [selectedID, setSelectedID] = useState<number>(0);
     const wheelPickerRef = useRef<HTMLDivElement>(null);
     const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
@@ -13,15 +19,13 @@ const WheelPicker = ({ options, height, setFunc }) => {
             const selectedIndex = index < options.length ? index : options.length - 1;
             setSelectedID(selectedIndex);
         }
-    }, [height]);
+    }, [height, options.length]);
 
     useEffect(() => {
-        setFunc(options[selectedID]);
-    }, []);
-
-    useEffect(() => {
-        setFunc(options[selectedID]);
-    }, [selectedID, setFunc]);
+        if (options.length > 0) {
+            setFunc(options[selectedID]);
+        }
+    }, [options, selectedID, setFunc]);
 
     useEffect(() => {
         const handleScrollWithRaf = () => {
@@ -60,14 +64,14 @@ const WheelPicker = ({ options, height, setFunc }) => {
             className="wheel-picker relative w-full h-full overflow-y-scroll scrollbar-hide text-center text-[130%]"
         >
             <div>&nbsp;</div>
-            {options.map((option, index) => (
+            {options.length > 0 ? options.map((option, index) => (
                 <div
                     key={index}
                     className={`wheel-option ${selectedID === index ? 'font-bold' : ''}`}
                 >
-                    {option}
+                    {option.name ? option.name : option}
                 </div>
-            ))}
+            )) : <div>&nbsp;</div>}
             <div>&nbsp;</div>
             <div>&nbsp;</div>
         </div>
