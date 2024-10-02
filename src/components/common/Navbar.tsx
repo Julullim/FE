@@ -32,8 +32,8 @@ const Navbar: React.FC<NavbarProps> = ({ text }) => {
         <div>
 
             <Mobile>
-                <div className="w-[100vw] h-[9.1vh] flex justify-center items-center absolute bottom-0">
-                    <img className="w-[10.9vw] h-[7vh]" src={`${text === 'notice'? noticeClick: notice}`}  onClick={() => handleNavClick('notice')}/>
+                <div className="w-[100vw] h-[9.1vh] flex justify-center items-center absolute bottom-0 bg-white">
+                    <img className="w-[10.9vw] h-[7vh] " src={`${text === 'notice'? noticeClick: notice}`}  onClick={() => handleNavClick('notice')}/>
                     <img className="w-[10.9vw] h-[7vh] ml-[8.6vw]" src={`${text === 'calendar'? calendarClick: calendar}`}  onClick={() => handleNavClick('calendar')}/>
                     <img className="w-[10.9vw] h-[7vh] ml-[8.6vw]" src={`${text === 'reservation'? reservationClick: reservation}`}  onClick={() => handleNavClick('reservation')}/>
                     <img className="w-[10.9vw] h-[7vh] ml-[8.6vw]" src={`${text === 'goods'? goodsClick: goods}`}  onClick={() => handleNavClick('goods')}/>

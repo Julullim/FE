@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Mobile, PC } from "../Layout";
-import { Link } from "react-router-dom";
-import AddConcert from "../../components/setlist/AddConcert";
-import SelctConcert from "../../components/setlist/SelectConcert";
 import { useSearchParams } from "react-router-dom";
 import { SetlistDetail } from "./SetlistDetail";
 import MainTab from "../../components/common/MainTab";
 import Navbar from "../../components/common/Navbar";
+import SelectConcert from "./SelectConcert";
+import PageTitle from "../../components/common/PageTitle";
 
 const emptyHeart = "https://s3-alpha-sig.figma.com/img/d44e/e4f7/c67e8005c7aedad495f2d819d86be9cd?Expires=1727654400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=kYuZKKLJya~9KVNTLL3HYCmpVqwaClFIAzEn-iDSIwF4TGk0cUB1TYQFoVY7PwGdblTF0c0PL-yURKD5bsMeGH4zIqd7LPAwao9RMoiT6Of59BG0NhhJrVSVUFk7j98Yovys-sEebvYQcF6H74biNPDXJqlAvfnXJ2kFV3u1qBcM~wUEaJlKZ6yABVhI-hrcG-QIiGgvnwDGAXTth8E7ULiaG5-RRqSFYCsroSPri9co901~pCDek~TnQChDd1AhVS81SkZhj1pJkoqnehDa9AipB9QMSHODHX8ag1qyZUUVCkm0bcSK3LQX43KTX4MGcvPgB3KdoIIrTLkvPKe1DA__";
 const fullHeart = "https://s3-alpha-sig.figma.com/img/ff3a/a28e/cf91dd37c4f65b8d2a97658185605e8f?Expires=1727654400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=qoVRc~PaFBg0hQFzGEkVa~UwlZDUc7v68r5vu6M2oRKKtNYy8Vbptm7TN5IRrEPbKbpvc1Bos872cGmpWu~DSD9xTrvBu5AFOtH0vs0zkhMEdhz3mWCsHH7h9pq7gVZeatfD3upC1aWcLzTGTMaEtU1rqA2LPgTfk~e0LRAdu-4r3uKz~uvr28e04aSGGlBAkmU9vRY9GBM5FZfnJkq-iCf1AC2ChIiaUIH3jWzVqE1YE~dS2e8x4czmhVjde0Axv2Tg3MgSUi-9JmLlFJCGUBq0AbcLVLICB-GArhMGF1guVQM44ms84bnJgpJVWkxhwphgMdmzP-A4Bq6huoMhdg__";
@@ -61,11 +60,36 @@ const SetlistPage: React.FC = () => {
         ]
     }
 
-    const [songs, setSongs] = React.useState(response.result.map((song) => { return {...song, open:false} }))
-    
+    const [songs, setSongs] = React.useState(response.result.map((song) => { return { ...song, open: false } }))
+
     const [searchParams, setSearchParams] = useSearchParams()
     const year = searchParams.get("year");
     const concert = searchParams.get("concert")
+
+    const [popAddConcert, setPopAddConcert] = React.useState(false)
+    const [popSelectConcert, setPopSelectConcert] = React.useState(false)
+
+    const AddConcert: React.FC = () => {
+        return (
+            <div className="absolute w-full h-full">
+                <div className="text-[110%]">
+                    연도
+                </div>
+                <input type="text" className="mt-[1vh] w-[80%] border-gray border-[1px]">
+                </input>
+                <div className="text-[110%] mt-[2vh]">
+                    공연 이름
+                </div>
+                <input type="text" className="mt-[1vh] w-[80%] border-gray border-[1px]">
+                </input>
+                <div className="relative bg-[#F2DCC2] w-[30vw] h-[8vw] ml-auto mr-auto mt-[2vh] rounded-lg flex items-center">
+                    <p className="text-black text-[90%] w-[35vw] text-center font-semibold">
+                        공연 추가
+                    </p>
+                </div>
+            </div>
+        )
+    }
 
     return (
         <div className="whitespace-nowrap">
@@ -77,53 +101,71 @@ const SetlistPage: React.FC = () => {
 
                     ) : (
                         <div className="h-full w-full flex flex-col">
-                            <div className="items-center mt-[3.5vh] ml-[4vh] mr-[4vh] mb-[2vh] flex">
-                                <div className="font-semibold text-[#333333] text-[120%] text-center">
-                                    공연 곡 리스트
-                                    <div className="h-1 left-px [background:radial-gradient(50%_50%_at_50%_50%,rgb(242,220,194)_0%,rgb(255,255,255)_100%)]" />
-                                </div>
-                            </div>
-                            <div className="flex-grow">
-                                <div className="relative">
-                                    <img src="https://s3-alpha-sig.figma.com/img/bb13/df41/148e7d8d7be701deddd618771d598a0f?Expires=1726444800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=LaK6hF8D9KzYRhSV0CzJZNPHtrogTLb4RmfSjlX040MX2tnlHAGgFyt7NrRCHdvk5Ht5WzrGpwxIIzkpyJ0Zgd319BoSVhGnNaMlKdhHNa0JG3aDjp2ftpto~h7UFoozCVwW44wFvIJyx-InXGdqZQM-xJvlkcWvkAL5i-541dhwc68b7tNN2oj0Fpv3MIUdW9RJP~FPwbQv4IUUxLoBrucbo2mEMfGxJ5yN8HSO6D9aV9peJ8oFzFi5EfICRTw8z-HYWfcuWJUHdZig1~XKQH7EWaB0pCHsPoY-pPmo1qJ3f-W787LvZg9J4jkF~hlbuzGtLE-ZXEJH0cWZ2uG-sA__"
-                                        className="w-full h-[28vh]" />
-                                    <div className="absolute top-0 left-0 w-full h-[28vh] bg-black opacity-60" />
-                                    <div className="absolute top-[2vw] left-[3vw] text-white">
-                                    </div>
-                                </div>
-                                <div className="relative">
-                                    <img src="https://s3-alpha-sig.figma.com/img/bb13/df41/148e7d8d7be701deddd618771d598a0f?Expires=1726444800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=LaK6hF8D9KzYRhSV0CzJZNPHtrogTLb4RmfSjlX040MX2tnlHAGgFyt7NrRCHdvk5Ht5WzrGpwxIIzkpyJ0Zgd319BoSVhGnNaMlKdhHNa0JG3aDjp2ftpto~h7UFoozCVwW44wFvIJyx-InXGdqZQM-xJvlkcWvkAL5i-541dhwc68b7tNN2oj0Fpv3MIUdW9RJP~FPwbQv4IUUxLoBrucbo2mEMfGxJ5yN8HSO6D9aV9peJ8oFzFi5EfICRTw8z-HYWfcuWJUHdZig1~XKQH7EWaB0pCHsPoY-pPmo1qJ3f-W787LvZg9J4jkF~hlbuzGtLE-ZXEJH0cWZ2uG-sA__"
-                                        className="w-full h-[28vh]" />
-                                    <div className="absolute top-0 left-0 w-full h-[28vh] bg-black opacity-60" />
-                                    <div className="absolute top-[2vw] right-[3vw] text-white text-right">
-                                    </div>
-                                </div>
-                                <div className="relative">
-                                    <img src="https://s3-alpha-sig.figma.com/img/bb13/df41/148e7d8d7be701deddd618771d598a0f?Expires=1726444800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=LaK6hF8D9KzYRhSV0CzJZNPHtrogTLb4RmfSjlX040MX2tnlHAGgFyt7NrRCHdvk5Ht5WzrGpwxIIzkpyJ0Zgd319BoSVhGnNaMlKdhHNa0JG3aDjp2ftpto~h7UFoozCVwW44wFvIJyx-InXGdqZQM-xJvlkcWvkAL5i-541dhwc68b7tNN2oj0Fpv3MIUdW9RJP~FPwbQv4IUUxLoBrucbo2mEMfGxJ5yN8HSO6D9aV9peJ8oFzFi5EfICRTw8z-HYWfcuWJUHdZig1~XKQH7EWaB0pCHsPoY-pPmo1qJ3f-W787LvZg9J4jkF~hlbuzGtLE-ZXEJH0cWZ2uG-sA__"
-                                        className="w-full h-[28vh]" />
-                                    <div className="absolute top-0 left-0 w-full h-[28vh] bg-black opacity-60" />
-                                </div>
-                            </div>
+                            <PageTitle title="공연 곡 리스트" />
+                            {[1, 2, 3].map((i) => {
+                                return (
 
-                            <div className="absolute top-[40vh] text-white text-[85%] text-center w-full">
+                                    <div className="flex-grow">
+                                        <div className="relative">
+                                            <img src="https://s3-alpha-sig.figma.com/img/bb13/df41/148e7d8d7be701deddd618771d598a0f?Expires=1726444800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=LaK6hF8D9KzYRhSV0CzJZNPHtrogTLb4RmfSjlX040MX2tnlHAGgFyt7NrRCHdvk5Ht5WzrGpwxIIzkpyJ0Zgd319BoSVhGnNaMlKdhHNa0JG3aDjp2ftpto~h7UFoozCVwW44wFvIJyx-InXGdqZQM-xJvlkcWvkAL5i-541dhwc68b7tNN2oj0Fpv3MIUdW9RJP~FPwbQv4IUUxLoBrucbo2mEMfGxJ5yN8HSO6D9aV9peJ8oFzFi5EfICRTw8z-HYWfcuWJUHdZig1~XKQH7EWaB0pCHsPoY-pPmo1qJ3f-W787LvZg9J4jkF~hlbuzGtLE-ZXEJH0cWZ2uG-sA__"
+                                                className="w-full h-[24vh] object-cover" />
+                                            <div className="absolute top-0 left-0 w-full h-[24vh] bg-black opacity-60" />
+                                            <div className="absolute top-[2vw] left-[3vw] text-white">
+                                            </div>
+                                        </div>
+                                    </div>)
+                            })}
+                            <div className="absolute top-[50vh] text-white text-[85%] text-center w-full">
                                 함께 했던 곡 리스트
-                                <div className="relative bg-[#FFE57B] w-[35vw] h-[10vw] ml-auto mr-auto mt-[2vh] rounded-lg flex items-center">
+                                <button className="relative bg-[#FFE57B] w-[35vw] h-[10vw] ml-auto mr-auto mt-[2vh] rounded-lg flex items-center"
+                                    onClick={
+                                        () => {
+                                            setPopSelectConcert(true);
+                                        }
+                                    }>
                                     <p className="text-black text-[120%] w-[35vw]">
                                         보러가기
                                     </p>
-                                </div>
+                                </button>
                             </div>
 
-                            <div className="bg-white w-full h-[30vh] rounded-t-3xl absolute bottom-0 flex">
-                                <img src="https://s3-alpha-sig.figma.com/img/d48e/ea4f/c4fa7c2925b17d7426d01b836093fe1b?Expires=1726444800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=K2sNN~1rk4HUWwy1Pk5tvywpqDcUJnI-pqRgRcufupJsvqyWQTYOBkMtLHQ-SmEbh7fJZvKskTFYotNv17NYW~noWoZE-2OIkNj86UXmufHM4~SNJyvByjMxwdAYSD~TjluEThQ9W1vtOPpAv82o7xvXfixd0zZo3q3ul-jTQFdWn6oReLORb6QlGl8JkHc~DiE0A9exbGWeFf64T1HW85Ae3iEE1OGnQ2YcqAooBrduSDMBmRFm7B1aVxCkQTk2wwTWVUDpiNrigoXxypLQ6pkJtDS9PH92CIM4ryQeUFiqWQExzF-7NZSVdAdwe0~EOpwfGJ-ykX1icquh~BDR-g__"
-                                    className="top-[5vw] right-[5vw] absolute w-[5vw] h-[5vw]"></img>
-                                <div className="relative ml-[10vw] mr-[10vw] mt-[4vh] mb-[3vh] flex-grow">
-                                    {
-                                        <AddConcert />
-                                        //<SelctConcert/>
-                                    }
-                                </div>
-                            </div>
+                            {popSelectConcert ? (
+                                <div className="bg-white w-full h-[30vh] rounded-t-3xl absolute bottom-0 flex z-20">
+                                    <img src="https://s3-alpha-sig.figma.com/img/d48e/ea4f/c4fa7c2925b17d7426d01b836093fe1b?Expires=1726444800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=K2sNN~1rk4HUWwy1Pk5tvywpqDcUJnI-pqRgRcufupJsvqyWQTYOBkMtLHQ-SmEbh7fJZvKskTFYotNv17NYW~noWoZE-2OIkNj86UXmufHM4~SNJyvByjMxwdAYSD~TjluEThQ9W1vtOPpAv82o7xvXfixd0zZo3q3ul-jTQFdWn6oReLORb6QlGl8JkHc~DiE0A9exbGWeFf64T1HW85Ae3iEE1OGnQ2YcqAooBrduSDMBmRFm7B1aVxCkQTk2wwTWVUDpiNrigoXxypLQ6pkJtDS9PH92CIM4ryQeUFiqWQExzF-7NZSVdAdwe0~EOpwfGJ-ykX1icquh~BDR-g__"
+                                        className="top-[5vw] right-[5vw] absolute w-[5vw] h-[5vw] cursor-pointer"
+                                        onClick={
+                                            () => {
+                                                setPopSelectConcert(false);
+                                            }
+                                        } />
+                                    <div className="relative ml-[10vw] mr-[10vw] mt-[4vh] mb-[3vh] flex-grow">
+                                        {
+                                            <SelectConcert popAddConcert={setPopAddConcert}/>
+                                        }
+                                    </div>
+                                </div>) :
+                                null
+                            }
+
+                            {popAddConcert ? (
+                                <div className="bg-white w-full h-[30vh] rounded-t-3xl absolute bottom-0 flex z-30">
+                                    <img src="https://s3-alpha-sig.figma.com/img/d48e/ea4f/c4fa7c2925b17d7426d01b836093fe1b?Expires=1726444800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=K2sNN~1rk4HUWwy1Pk5tvywpqDcUJnI-pqRgRcufupJsvqyWQTYOBkMtLHQ-SmEbh7fJZvKskTFYotNv17NYW~noWoZE-2OIkNj86UXmufHM4~SNJyvByjMxwdAYSD~TjluEThQ9W1vtOPpAv82o7xvXfixd0zZo3q3ul-jTQFdWn6oReLORb6QlGl8JkHc~DiE0A9exbGWeFf64T1HW85Ae3iEE1OGnQ2YcqAooBrduSDMBmRFm7B1aVxCkQTk2wwTWVUDpiNrigoXxypLQ6pkJtDS9PH92CIM4ryQeUFiqWQExzF-7NZSVdAdwe0~EOpwfGJ-ykX1icquh~BDR-g__"
+                                        className="top-[5vw] right-[5vw] absolute w-[5vw] h-[5vw] cursor-pointer"
+                                        onClick={
+                                            () => {
+                                                setPopAddConcert(false);
+                                            }
+                                        } />
+                                    <div className="relative ml-[10vw] mr-[10vw] mt-[4vh] mb-[3vh] flex-grow">
+                                        {
+                                            <AddConcert />
+                                        }
+                                    </div>
+                                </div>) :
+                                null
+                            }
+
+
 
                         </div>
                     )}
