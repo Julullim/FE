@@ -72,8 +72,7 @@ const WheelPicker: React.FC<WheelPickerProps> = ({ options, height, setFunc }) =
                     {option.name ? option.name : option}
                 </div>
             )) : <div>&nbsp;</div>}
-            <div>&nbsp;</div>
-            <div>&nbsp;</div>
+            <div className='h-full'/>
         </div>
     );
 };

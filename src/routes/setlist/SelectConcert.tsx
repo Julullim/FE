@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import WheelPicker from './WheelPicker';
+import { ConcertListProps } from './SetlistProps';
 
 
-const response = {
+const response:ConcertListProps = {
     2022: [{ "id": 1, "name": "봄공연" }, { "id": 2, "name": "여름공연" }],
     2023: [{ "id": 3, "name": "여름공연" }, { "id": 4, "name": "가을공연" }],
     2024: [{ "id": 5, "name": "가을공연" }, { "id": 6, "name": "겨울공연" }],
 };
 
-const SelectConcert = ({ popAddConcert }) => {
+const SelectConcert: React.FC<{ popAddConcert: any }> = ({ popAddConcert }) => {
     const [year, setYear] = useState<number>();
-    const [concert, setConcert] = useState<{id:number, name:string }>();
+    const [concert, setConcert] = useState<{ id: number, name: string }>();
     const [concerts, setConcerts] = useState<{ id: number, name: string }[]>([]);
     const [_height, setHeight] = useState<number>(0);
 
@@ -18,7 +19,6 @@ const SelectConcert = ({ popAddConcert }) => {
 
 
     useEffect(() => {
-        // year가 undefined일 경우 concerts를 빈 배열로 설정
         if (year) {
             setConcerts(response[year] || []);
         } else {
@@ -64,8 +64,7 @@ const SelectConcert = ({ popAddConcert }) => {
                 </button>
                 <button className="relative bg-[#FFE57B] w-[30vw] h-[8vw] ml-auto mr-auto mt-[2vh] rounded-lg flex items-center"
                     onClick={() => {
-                        console.log(year, concert.name, concert.id);
-                        if(year && concert){
+                        if (year && concert) {
                             window.location.href = `setlist?year=${year}&concert=${concert.id}`;
                         }
                     }}>

@@ -2,20 +2,23 @@ import React, { useEffect } from "react";
 import { Mobile, PC } from "../Layout";
 import { useSearchParams } from "react-router-dom";
 import PageTitle from "../../components/common/PageTitle";
+import { getSetlist } from "../../libs/apis/setlist";
 
 const emptyHeart = "https://s3-alpha-sig.figma.com/img/d44e/e4f7/c67e8005c7aedad495f2d819d86be9cd?Expires=1727654400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=kYuZKKLJya~9KVNTLL3HYCmpVqwaClFIAzEn-iDSIwF4TGk0cUB1TYQFoVY7PwGdblTF0c0PL-yURKD5bsMeGH4zIqd7LPAwao9RMoiT6Of59BG0NhhJrVSVUFk7j98Yovys-sEebvYQcF6H74biNPDXJqlAvfnXJ2kFV3u1qBcM~wUEaJlKZ6yABVhI-hrcG-QIiGgvnwDGAXTth8E7ULiaG5-RRqSFYCsroSPri9co901~pCDek~TnQChDd1AhVS81SkZhj1pJkoqnehDa9AipB9QMSHODHX8ag1qyZUUVCkm0bcSK3LQX43KTX4MGcvPgB3KdoIIrTLkvPKe1DA__";
 const fullHeart = "https://s3-alpha-sig.figma.com/img/ff3a/a28e/cf91dd37c4f65b8d2a97658185605e8f?Expires=1727654400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=qoVRc~PaFBg0hQFzGEkVa~UwlZDUc7v68r5vu6M2oRKKtNYy8Vbptm7TN5IRrEPbKbpvc1Bos872cGmpWu~DSD9xTrvBu5AFOtH0vs0zkhMEdhz3mWCsHH7h9pq7gVZeatfD3upC1aWcLzTGTMaEtU1rqA2LPgTfk~e0LRAdu-4r3uKz~uvr28e04aSGGlBAkmU9vRY9GBM5FZfnJkq-iCf1AC2ChIiaUIH3jWzVqE1YE~dS2e8x4czmhVjde0Axv2Tg3MgSUi-9JmLlFJCGUBq0AbcLVLICB-GArhMGF1guVQM44ms84bnJgpJVWkxhwphgMdmzP-A4Bq6huoMhdg__";
 const arrow_up = "https://s3-alpha-sig.figma.com/img/9a0c/4700/1493a9b8a035379f27652c18daed6ee3?Expires=1727654400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=F6ZT-d6mColTqvXIZcLs12M6CTEkrh~rrIh9ieMFb-SFQOfLMzE8qXezEfaK73Mjv3MyiZcEUAFrDYBqBCCOg-CvaPyCfgL2Z~OH4MrvCdNpJ-8Viw8J2Uu-kVdx~pJ8jVfxfuZNp5RRlB7kuh1dEYYsY4SvBRf8XNq9DpOkRFjrKEqboZLJyGxVw07XbMiORTPV3yr~~mCFRQLt02jx~JDllZ8Xg6~OPxA2-fcmvpV5YnA3LL~M0Hhl6FgyHB1IFMh53NDoXhMKtS3LNVHfy2A~fCFRTL6Df-lUUfK3JNxJmzzJNYoBC9H09R4SVPXMxP3do~5TwrhdM1uQ-5rFvQ__";
 
-export const SetlistDetail: React.FC<{ year: string, concert: string, table: { song_id: number, title: string, artist: string, liked: boolean, open: boolean | null }[] }> = ({ year, concert, table }) => {
-    const [concerts, setConcerts] = React.useState(table);
+const SetlistDetail: React.FC<{ year: number, concert: number }> = ({ year, concert}) => {
+    const [concerts, setConcerts] = React.useState([]);
     const [popAddSong, setPopAddSong] = React.useState(false);
-
 
     const AddSong: React.FC = () => {
 
         const sendAPI = (data: {}) => {
-            alert('곡이 추가되었습니다.');
+            alert(
+                JSON.stringify(data)
+                +"곡 추가합니다."
+            );
         }
 
         return (
@@ -167,13 +170,14 @@ export const SetlistDetail: React.FC<{ year: string, concert: string, table: { s
     };
 
     const Song: React.FC<{ title: string, artist: string, liked: boolean, open: boolean }> = ({ title, artist, liked, open }) => {
+
         return (
             <div>
                 <Mobile>
                     <div className={`w-full h-[10vh] flex items-center border-b-2 border-lightgray ${open ? 'shadow-[0px_0px_10px_0px_#F2DCC2] relative' : ''}`}>
                         <img src={liked ? fullHeart : emptyHeart} className="w-[10vw] h-[10vw] ml-[2vh] mr-[2vh]"
                             onClick={() => {
-                                {/* 좋아요 반전 */}
+                                {/* 좋아요 반전 */ }
                             }} />
                         <div className="">
                             <div className="text-[#333333] font-bold text-2xl">{title}</div>
@@ -224,9 +228,9 @@ export const SetlistDetail: React.FC<{ year: string, concert: string, table: { s
                         <PageTitle title={year + " " + concert} />
                         <div className="Table w-[90vw] h-[70vh] mr-auto ml-auto overflow-y-auto scrollbar-hide ">
                             {concerts.map((item) => (
-                                <div onClick={() => {
+                                <div key={item.song_id} onClick={() => {
                                     setConcerts(concerts.map(concertItem =>
-                                        concertItem === item ? { ...concertItem, open: !item.open } : concertItem))
+                                        concertItem.song_id === item.song_id ? { ...concertItem, open: !item.open } : concertItem))
                                 }}>
                                     <Song title={item.title} artist={item.artist} liked={item.liked} open={item.open ? true : false} />
                                 </div>
@@ -296,3 +300,4 @@ export const SetlistDetail: React.FC<{ year: string, concert: string, table: { s
     )
 }
 
+export default SetlistDetail;

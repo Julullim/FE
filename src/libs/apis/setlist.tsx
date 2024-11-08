@@ -2,9 +2,8 @@ import instance from "./base";
 
 
 //곡 목록 받아오기
-export const getSetlist = async (code:string) => {
-    const resp = await instance.get(`/song/?year=2024&concert=2`);
-    //console.log(resp.data)
+export const getSetlist = async (year:number,concert:number) => {
+    const resp = await instance.get(`/song/?year=${year}&concert=${concert}`);
     return resp.data;
 
 };
